@@ -25,7 +25,7 @@ function addUser(username, email, password, confirmPassword) {
     //Implement the code to save the user in the database in Phase 2
 }
 
-function checkUser(email, password) {
+function loginUser(email, password) {
     for (var i = 0; i < users.length; i++) {
         if (users[i].email === email && users[i].password === password) {
             return users[i];

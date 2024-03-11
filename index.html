@@ -12,8 +12,8 @@
         <div class="banner">
             <h1>My Website</h1>
             <div class="auth-buttons">
-                <button onclick="showLoginForm()">Login</button>
-                <button onclick="showRegisterForm()">Register</button>
+                <button onclick="showPage('LoginForm')">Login</button>
+                <button onclick="showPage('registerForm')">Register</button>
             </div>
         </div>
     </header>
@@ -31,26 +31,12 @@
 
     </main>
     <script>
-        //When the login button is pressed shows a login form in the main content
-        function showLoginForm() {
+        function showPage(page) {
+            //load the page into the main content
             document.querySelector(".content").innerHTML = `
-                <form class="login-form">
-                    <h2>Login</h2>
-                    <input type="text" placeholder="Username" required>
-                    <input type="password" placeholder="Password" required>
-                    <button type="submit">Login</button>
-                </form>
+                <object type="text/html" data="view/${page}.html" width="100%" height="100%"></object>
             `;
         }
-
-        //When the register button is pressed shows a register form in the main content
-        function showRegisterForm() {
-            //load the registerForm.html file into the main content
-            document.querySelector(".content").innerHTML = `
-                <object type="text/html" data="view/registerForm.html" width="100%" height="100%"></object>
-            `;
-        }
-
     </script>
 </body>
 </html>
