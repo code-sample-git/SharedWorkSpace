@@ -1,8 +1,21 @@
-function showPage(page) {
-    //load the page into the main content
-    document.querySelector(".content").innerHTML = `
-        <object type="text/html" data="view/${page}.html" width="100%" height="100%"></object>
-    `;
+const showPage = (page) => {
+    // Create the object element
+    let obj = document.createElement('object');
+    obj.type = 'text/html';
+    obj.data = `view/${page}.html`;
+    obj.width = '100%';
+    obj.height = '1000px'; // Initial height
+
+    // Adjust the height of the object when its content loads
+    obj.onload = function () {
+        // Set the height to the scrollHeight of the object's contentDocument body
+        this.style.height = this.contentDocument.body.scrollHeight + 'px';
+    };
+
+    // Clear the content and append the object
+    let content = parent.document.querySelector(".content");
+    content.innerHTML = '';
+    content.appendChild(obj);
 }
 
 function addUser(username, email, password, confirmPassword) {
@@ -33,8 +46,6 @@ function addUser(username, email, password, confirmPassword) {
 }
 
 function addProperty(name, description, price, photos) {
-    console.log("photos:" + JSON.stringify(photos));
-
     //Validate the user input. this also required in the backend validation
     if (name.length < 3) {
         return "Name must be at least 3 characters long";
@@ -44,12 +55,18 @@ function addProperty(name, description, price, photos) {
         return "Price must be a positive number";
     }
 
+    //Get the user from the session
+    let user = JSON.parse(sessionStorage.getItem("user"));
+    if(user === null){
+        return "User not logged in";
+    }
     //form the data.
     let property = {
         name: name,
         description: description,
         price: price,
-        photos: photos
+        photos: photos,
+        owner: user.username
     };
 
     if(addObjecttoLocalStorage(property, "properties")){
@@ -94,8 +111,6 @@ function getObjectFromLocalStorage(storageKey, objectKeysJson) {
     if (data === null) {
         return [];
     }
-    console.log("data:" + JSON.stringify(data));
-    console.log("objectKeysJson:" + JSON.stringify(objectKeysJson));
     //Find the objects that has all the keys and values in the objectKeysJson
     
     var resultset = [];

@@ -1,16 +1,29 @@
 <div class="container">
     <h1>Properties</h1>
     <!-- A add New Property Butto-->
+    <button id="addNewProperty" onclick="showPage('propertyForm')">Add New Property</button>
     <!--Menu-->
     <div class="controls">
         <button id="sort-asc">Sort by Price (Asc)</button>
         <button id="sort-desc">Sort by Price (Desc)</button>
+        <button id="myOwnProperties">My Own Properties</button>
     </div>
     <!-- Display the Properties here -->
     <div id="items"></div>
 </div>
 <script src="../model.js"></script>
 <script>
+    //if the user is logged in, hide the register and login buttons
+    if (sessionStorage.getItem("user")) {
+        //Show the myOwnProperties button
+        document.getElementById("myOwnProperties").style.display = "block";
+        //Show the Add New Property button
+        document.getElementById("addNewProperty").style.display = "block";
+    } else {
+        document.getElementById("myOwnProperties").style.display = "none";
+        document.getElementById("addNewProperty").style.display = "none";
+    }
+
     //Load the properties from Local Storage
     let properties = JSON.parse(localStorage.getItem("properties")) || [];
     //Display the properties
@@ -29,11 +42,13 @@
         items.innerHTML = "";
         properties.forEach(property => {
             const item = document.createElement("div");
+            item.className = 'item';
             item.classList.add("property");
             item.innerHTML = `
                 <h2>${property.name}</h2>
                 <p>${property.description}</p>
                 <p>Price: $${property.price}</p>
+                <img src="${property.photos[0]}" alt="${property.name}">
                 <button onclick="location.href='property.html?id=${property.id}'">View</button>
             `;
             items.appendChild(item);

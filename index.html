@@ -26,17 +26,9 @@
         <nav class="nav-menu">
             <ul>
                 <li><button onclick="location.href='home.html';">Home</button></li>
-                <li><button onclick="location.href='properties.html';">Properties</button></li>
+                <li><button onclick="showPage('properties')">Properties</button></li>
                 <li><button onclick="location.href='workspaces.html';">Workspaces</button></li>
                 <li><button onclick="location.href='rating.html';">Rating</button></li>
-            </ul>
-        </nav>
-        <nav class="nav-menu" id="myListingMenu">
-            <header>My Listing</header>
-            <ul>
-                <li><button onclick="showPage('properties')">Properties</button></li>
-                <li><button onclick="showPage('PropertyForm')">- Add New</button></li>
-                <li><button onclick="location.href='workspaces.html';">Workspaces</button></li>
             </ul>
         </nav>
     </aside>
@@ -45,20 +37,15 @@
     </main>
     <script src="model.js"></script>
     <script>
-
         //if the user is logged in, hide the register and login buttons
         if (sessionStorage.getItem("user")) {
             document.querySelector(".auth-buttons").style.display = "none";
             const username = JSON.parse(sessionStorage.getItem("user")).username;
             document.getElementById("username").innerText = username;
-            //show the my listing menu
-            document.getElementById("myListingMenu").style.display = "block";
             //show the user info
             document.querySelector(".user-info").style.display = "block";
         }else{
             document.querySelector(".user-info").style.display = "none";
-            //hide the my listing menu
-            document.getElementById("myListingMenu").style.display = "none";
         }
 
         function logout() {

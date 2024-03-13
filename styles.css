@@ -59,6 +59,9 @@ header {
     margin-left: 200px; /* Sidebar width */
     margin-top: 50px; /* Header height */
     padding: 20px;
+    width: calc(100% - 200px); /* Sidebar width */
+    height: 100%;
+
 }
 
 /* Optional: Add a background color to the content area for clearer separation */
