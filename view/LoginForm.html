@@ -1,6 +1,7 @@
 <form class="login-form">
     <h2>Login</h2>
-    <input type="text" placeholder="Username" required>
+    <!-- Use Email to Login-->
+    <input type="text" placeholder="Email" required>
     <input type="password" placeholder="Password" required>
     <button type="submit">Login</button>
 </form>
@@ -9,9 +10,9 @@
     //When the login button is pressed Validate the form
     document.querySelector(".login-form button").addEventListener("click", function (event) {
         event.preventDefault();
-        let username = document.querySelector(".login-form input[type='text']").value;
+        let email = document.querySelector(".login-form input[type='text']").value;
         let password = document.querySelector(".login-form input[type='password']").value;
-        const result = loginUser(username, password);
+        const result = loginUser(email, password);
         alert(result);
     });
 

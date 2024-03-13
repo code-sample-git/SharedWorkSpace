@@ -1,0 +1,56 @@
+<!--A form to the new listing property detail and allow user to upload a some photos for this-->
+<form class="property-form">
+    <h2>Add New Property</h2>
+    <input type="text" placeholder="Property Name" required>
+    <textarea placeholder="Description" required></textarea>
+    <input type="number" placeholder="Price" required>
+    <!-- get images-->
+    <input type="file" multiple accept="image/png, image/jpeg, image/jpg, image/gif" required>
+    <button type="submit">Add</button>
+</form>
+<script src="../model.js"></script>
+<script>
+    //When the add button is pressed Validate the form
+    document.querySelector(".property-form button").addEventListener("click", function (event) {
+        event.preventDefault();
+        let name = document.querySelector(".property-form input[type='text']").value;
+        let description = document.querySelector(".property-form textarea").value;
+        let price = document.querySelector(".property-form input[type='number']").value;
+
+        // Get the file input element
+        let input = document.querySelector(".property-form input[type='file']");
+        // Get the selected files
+        let files = input.files;
+        // This will hold the data URLs
+        let photos = [];
+
+        for (let i = 0; i < files.length; i++) {
+            let reader = new FileReader();
+
+            reader.onload = function (event) {
+                let img = new Image();
+                img.onload = function () {
+                    let canvas = document.createElement('canvas');
+                    let ctx = canvas.getContext('2d');
+                    canvas.width = 100;
+                    canvas.height = 100;
+                    ctx.drawImage(img, 0, 0, 100, 100);
+                    let dataurl = canvas.toDataURL('image/png');
+
+                    // Add the data URL to the photos array
+                    photos.push(dataurl);
+
+                    // Call addProperty when all files are processed
+                    if (photos.length === files.length) {
+                        const result = addProperty(name, description, price, photos);
+                        alert(result);
+                    }
+                }
+                img.src = event.target.result;
+            };
+
+            // Read the image file as a data URL
+            reader.readAsDataURL(files[i]);
+        }
+    });
+</script>

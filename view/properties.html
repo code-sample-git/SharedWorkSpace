@@ -1,0 +1,42 @@
+<div class="container">
+    <h1>Properties</h1>
+    <!-- A add New Property Butto-->
+    <!--Menu-->
+    <div class="controls">
+        <button id="sort-asc">Sort by Price (Asc)</button>
+        <button id="sort-desc">Sort by Price (Desc)</button>
+    </div>
+    <!-- Display the Properties here -->
+    <div id="items"></div>
+</div>
+<script src="../model.js"></script>
+<script>
+    //Load the properties from Local Storage
+    let properties = JSON.parse(localStorage.getItem("properties")) || [];
+    //Display the properties
+    displayProperties(properties);
+    //Sort the properties by price
+    document.getElementById("sort-asc").addEventListener("click", function () {
+        properties.sort((a, b) => a.price - b.price);
+        displayProperties(properties);
+    });
+    document.getElementById("sort-desc").addEventListener("click", function () {
+        properties.sort((a, b) => b.price - a.price);
+        displayProperties(properties);
+    });
+    function displayProperties(properties) {
+        const items = document.getElementById("items");
+        items.innerHTML = "";
+        properties.forEach(property => {
+            const item = document.createElement("div");
+            item.classList.add("property");
+            item.innerHTML = `
+                <h2>${property.name}</h2>
+                <p>${property.description}</p>
+                <p>Price: $${property.price}</p>
+                <button onclick="location.href='property.html?id=${property.id}'">View</button>
+            `;
+            items.appendChild(item);
+        });
+    }
+</script>

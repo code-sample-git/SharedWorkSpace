@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Template</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <script src="scripts.js"></script>
     <header>
         <div class="banner">
             <h1>My Website</h1>
             <div class="auth-buttons">
-                <button onclick="showPage('LoginForm')">Login</button>
+                <button onclick="showPage('loginForm')">Login</button>
                 <button onclick="showPage('registerForm')">Register</button>
+            </div>
+            <div class="user-info">
+                <p>Welcome, <span id="username"></span> <button onclick="logout()">Logout</button></p>
+                
             </div>
         </div>
     </header>
@@ -26,17 +31,41 @@
                 <li><button onclick="location.href='rating.html';">Rating</button></li>
             </ul>
         </nav>
+        <nav class="nav-menu" id="myListingMenu">
+            <header>My Listing</header>
+            <ul>
+                <li><button onclick="showPage('properties')">Properties</button></li>
+                <li><button onclick="showPage('PropertyForm')">- Add New</button></li>
+                <li><button onclick="location.href='workspaces.html';">Workspaces</button></li>
+            </ul>
+        </nav>
     </aside>
     <main class="content">
 
     </main>
+    <script src="model.js"></script>
     <script>
-        function showPage(page) {
-            //load the page into the main content
-            document.querySelector(".content").innerHTML = `
-                <object type="text/html" data="view/${page}.html" width="100%" height="100%"></object>
-            `;
+
+        //if the user is logged in, hide the register and login buttons
+        if (sessionStorage.getItem("user")) {
+            document.querySelector(".auth-buttons").style.display = "none";
+            const username = JSON.parse(sessionStorage.getItem("user")).username;
+            document.getElementById("username").innerText = username;
+            //show the my listing menu
+            document.getElementById("myListingMenu").style.display = "block";
+            //show the user info
+            document.querySelector(".user-info").style.display = "block";
+        }else{
+            document.querySelector(".user-info").style.display = "none";
+            //hide the my listing menu
+            document.getElementById("myListingMenu").style.display = "none";
+        }
+
+        function logout() {
+            sessionStorage.removeItem("user");
+            location.reload();
         }
     </script>
 </body>
+
 </html>
