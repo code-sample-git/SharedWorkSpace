@@ -46,22 +46,38 @@ function addUser(username, email, password, confirmPassword) {
 }
 
 function addProperty(name, description, price, photos) {
+    //define response format
+    let response = {
+        result: false,
+        message: ""
+    };
+
     //Validate the user input. this also required in the backend validation
     if (name.length < 3) {
-        return "Name must be at least 3 characters long";
+        response.message = "Name must be at least 3 characters long";
+        return response;
     } else if (description.length < 6) {
-        return "Description must be at least 6 characters long";
+        response.message = "Description must be at least 6 characters long";
+        return response;
     } else if (price < 0) {
-        return "Price must be a positive number";
+        response.message = "Price must be a positive number";
+        return response;
     }
 
     //Get the user from the session
     let user = JSON.parse(sessionStorage.getItem("user"));
     if(user === null){
-        return "User not logged in";
+        response.message = "User not logged in";
+        return response;
+    }
+    //Create a GUID for the property
+    const guid = () => {
+        const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     }
     //form the data.
     let property = {
+        id: guid(),
         name: name,
         description: description,
         price: price,
@@ -70,10 +86,12 @@ function addProperty(name, description, price, photos) {
     };
 
     if(addObjecttoLocalStorage(property, "properties")){
-        return "Property added successfully";
+        response.result = true;
+        response.message = "Property added successfully";
     }else{
-        return "Error in adding the property";
+        response.message = "Error in adding the property";
     }
+    return response;
     //Implement the code to save the property in the database in Phase 2
 }
 
@@ -81,12 +99,12 @@ function loginUser(email, password) {
     //Query the local storage to get the user and validate the password
     let users = getObjectFromLocalStorage("users", {email: email, password: password});
     if(users.length === 0){
-        return "User not found";
+        return {"result": false, "message":"User not found"};
     }else{
         //Login Success and save the user to the session
         sessionStorage.setItem("user", JSON.stringify(users[0]));
         
-        return "Login successful with the user: " + users[0].username + " and email: " + users[0].email;
+        return {"result": true, "message":"Login Success"}
     }
     //Implement the code to check the user from the database in Phase 2
 }

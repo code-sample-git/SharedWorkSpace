@@ -42,8 +42,13 @@
 
                     // Call addProperty when all files are processed
                     if (photos.length === files.length) {
-                        const result = addProperty(name, description, price, photos);
-                        alert(result);
+                        const res = addProperty(name, description, price, photos);
+                        if(res.result){
+                            alert("Property added successfully");
+                            location.href = "propertiesList.html";
+                        }else{
+                            alert(res.message);
+                        }
                     }
                 }
                 img.src = event.target.result;

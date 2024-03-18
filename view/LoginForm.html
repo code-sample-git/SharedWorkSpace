@@ -12,8 +12,13 @@
         event.preventDefault();
         let email = document.querySelector(".login-form input[type='text']").value;
         let password = document.querySelector(".login-form input[type='password']").value;
-        const result = loginUser(email, password);
-        alert(result);
+        const res = loginUser(email, password);
+        if (res.result) {
+            //redirect to home page if result is success
+            parent.location.href = "../index.html";
+        }else{
+            alert(res.message);
+        }
     });
 
 </script>

@@ -1,0 +1,25 @@
+<div class="container">
+    <h1>Property</h1>
+    <div id="property"></div>
+</div>
+<script src="../model.js"></script>
+<script>
+    //Get the property id from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+    //Load the properties from Local Storage
+    let properties = JSON.parse(localStorage.getItem("properties")) || [];
+    //Find the property by id
+    const property = properties.find(p => p.id == id);
+    console.log(JSON.stringify(property));
+    //Display the property
+    const propertyDiv = document.getElementById("property");
+    propertyDiv.innerHTML = `
+        <h2>${property.name}</h2>
+        <p>${property.description}</p>
+        <p>Price: $${property.price}</p>
+        <img src="${property.photos[0]}" alt="${property.name}">
+        <button onclick="location.href='propertyForm.html?id=${property.id}'">Edit</button>
+    `;
+</script>
