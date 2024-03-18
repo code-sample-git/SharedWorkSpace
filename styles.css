@@ -18,7 +18,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.5); /* White with transparency */
+    background: rgba(255, 255, 255, 0.3); /* White with transparency */
     z-index: 0; /* Ensure this is behind the content */
 }
 
@@ -32,12 +32,37 @@ header {
     align-items: center;
     transition: background-color 0.5s ease; /* Smooth transition for background color */
     z-index: 1000; /* Ensure header is above other content */
+    text-align: center; /* This will center all text within the header */
+
 } 
 
 header:hover {
-    background-color: rgba(242, 227, 23, 0.5); /* Darker shade on hover for subtle interaction */
+    background-color: rgba(242, 227, 23, 0.3); /* Darker shade on hover for subtle interaction */
     
 }
+
+h1 {
+    margin: 0; /* Adjusted margin to clear the header */
+    color: #fff;
+    font-size: 36px;
+    font-weight: normal;
+    font-family: fantasy;
+}
+
+#slogan{
+    font-size: 1em;
+    margin-top: 10px;
+    font-weight: normal;
+    color: #fff;
+    animation: blink-animation 5s linear infinite; /* Apply the blink animation */
+  }
+  
+  /* Define the keyframes for the blinking animation */
+  @keyframes blink-animation {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+  }
 
 
 .banner {
@@ -53,7 +78,7 @@ header:hover {
     top: 100px + 1%; /* Adjusted to clear the header */
     left: 10px + 5%; 
     width: 200px;
-    height: calc(500px - 50px); /* Adjusted height to clear the header */
+    height: calc(800px - 50px); /* Adjusted height to clear the header */
 
     padding-top: 20px;
     transition: background-color 0.5s ease; /* Smooth transition for background color */
