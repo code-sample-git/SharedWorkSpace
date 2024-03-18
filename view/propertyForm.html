@@ -1,9 +1,13 @@
 <!--A form to the new listing property detail and allow user to upload a some photos for this-->
 <form class="property-form">
     <h2>Add New Property</h2>
-    <input type="text" placeholder="Property Name" required>
-    <textarea placeholder="Description" required></textarea>
-    <input type="number" placeholder="Price" required>
+    <input id="propertyName" type="text" placeholder="Property Name" required>
+    <textarea id="propertyDes" placeholder="Description" required></textarea>
+    <input id="streetAddr" type="text" placeholder="Street Address" required>
+    <input id="city" type="text" placeholder="City" required>
+    <input id="state" type="text" placeholder="State" required>
+    <input id="zip" type="text" placeholder="Zip" required>
+    <input id="country" type="text" placeholder="Country" required>
     <!-- get images-->
     <input type="file" multiple accept="image/png, image/jpeg, image/jpg, image/gif" required>
     <button type="submit">Add</button>
@@ -13,9 +17,20 @@
     //When the add button is pressed Validate the form
     document.querySelector(".property-form button").addEventListener("click", function (event) {
         event.preventDefault();
-        let name = document.querySelector(".property-form input[type='text']").value;
-        let description = document.querySelector(".property-form textarea").value;
-        let price = document.querySelector(".property-form input[type='number']").value;
+        //Get the property name by id
+        let name = document.getElementById("propertyName").value;
+        //Get the property description by id
+        let description = document.getElementById("propertyDes").value;
+        //Get the street address by id
+        let streetAddr = document.getElementById("streetAddr").value;
+        //Get the city by id
+        let city = document.getElementById("city").value;
+        //Get the state by id
+        let state = document.getElementById("state").value;
+        //Get the zip by id
+        let zip = document.getElementById("zip").value;
+        //Get the country by id
+        let country = document.getElementById("country").value;
 
         // Get the file input element
         let input = document.querySelector(".property-form input[type='file']");
@@ -42,7 +57,7 @@
 
                     // Call addProperty when all files are processed
                     if (photos.length === files.length) {
-                        const res = addProperty(name, description, price, photos);
+                        const res = addProperty(name, description, photos, streetAddr, city, state, zip, country);
                         if(res.result){
                             alert("Property added successfully");
                             location.href = "propertiesList.html";

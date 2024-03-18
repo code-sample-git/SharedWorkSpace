@@ -4,8 +4,6 @@
     <button id="addNewProperty" onclick="showPage('propertyForm')">Add New Property</button>
     <!--Menu-->
     <div class="controls">
-        <button id="sort-asc">Sort by Price (Asc)</button>
-        <button id="sort-desc">Sort by Price (Desc)</button>
         <button id="myOwnProperties">My Own Properties</button>
     </div>
     <!-- Display the Properties here -->
@@ -28,15 +26,6 @@
     let properties = JSON.parse(localStorage.getItem("properties")) || [];
     //Display the properties
     displayProperties(properties);
-    //Sort the properties by price
-    document.getElementById("sort-asc").addEventListener("click", function () {
-        properties.sort((a, b) => a.price - b.price);
-        displayProperties(properties);
-    });
-    document.getElementById("sort-desc").addEventListener("click", function () {
-        properties.sort((a, b) => b.price - a.price);
-        displayProperties(properties);
-    });
     function displayProperties(properties) {
         const items = document.getElementById("items");
         items.innerHTML = "";
@@ -46,9 +35,8 @@
             item.classList.add("property");
             item.innerHTML = `
                 <h2>${property.name}</h2>
-                <p>${property.description}</p>
-                <p>Price: $${property.price}</p>
                 <img src="${property.photos[0]}" alt="${property.name}">
+                <p>${property.city}, ${property.state}, ${property.country}</p>
                 <button onclick="location.href='propertyView.html?id=${property.id}'">View</button>
             `;
             items.appendChild(item);

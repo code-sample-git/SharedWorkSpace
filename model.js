@@ -45,7 +45,7 @@ function addUser(username, email, password, confirmPassword) {
     //Implement the code to save the user in the database in Phase 2
 }
 
-function addProperty(name, description, price, photos) {
+function addProperty(name, description, photos, streetAddr, city, state, zip, country){
     //define response format
     let response = {
         result: false,
@@ -59,11 +59,23 @@ function addProperty(name, description, price, photos) {
     } else if (description.length < 6) {
         response.message = "Description must be at least 6 characters long";
         return response;
-    } else if (price < 0) {
-        response.message = "Price must be a positive number";
+    }else if (!streetAddr.length) {
+        response.message = "Street Address is required";
+        return response;
+    }else if (!city.length) {
+        response.message = "City is required";
+        return response;
+    }else if (!state.length) {
+        response.message = "State is required";
+        return response;
+    }else if (!zip.length) {
+        response.message = "Zip is required";
+        return response;
+    }else if (!country.length) {
+        response.message = "Country is required";
         return response;
     }
-
+       
     //Get the user from the session
     let user = JSON.parse(sessionStorage.getItem("user"));
     if(user === null){
@@ -80,8 +92,12 @@ function addProperty(name, description, price, photos) {
         id: guid(),
         name: name,
         description: description,
-        price: price,
         photos: photos,
+        streetAddr: streetAddr,
+        city: city,
+        state: state,
+        zip: zip,
+        country: country,
         owner: user.username
     };
 

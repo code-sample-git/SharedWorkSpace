@@ -18,8 +18,13 @@
     propertyDiv.innerHTML = `
         <h2>${property.name}</h2>
         <p>${property.description}</p>
-        <p>Price: $${property.price}</p>
+        <p>${property.streetAddr}</p>
+        <p>${property.city}</p>
+        <p>${property.state}</p>
+        <p>${property.zip}</p>
+        <p>${property.country}</p>
         <img src="${property.photos[0]}" alt="${property.name}">
         <button onclick="location.href='propertyForm.html?id=${property.id}'">Edit</button>
+        <button onclick="location.href='workspaceForm.html?id=${property.id}'">Edit</button>
     `;
 </script>
