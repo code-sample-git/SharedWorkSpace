@@ -1,0 +1,65 @@
+<!-- A form to add new Workspace-->
+<form class="Workspace-Form">
+    <h2>Add New Workspace</h2>
+    <input id="WorkspaceName" type="text" placeholder="Workspace Name" required>
+    <textarea id="WorkspaceDes" placeholder="Description" required></textarea>
+    <input id="size" type="number" placeholder="Size" required>
+    <input id="price" type="number" placeholder="Price" required>
+    <!-- get images-->
+    <input type="file" multiple accept="image/png, image/jpeg, image/jpg, image/gif" required>
+    <button type="submit">Add</button>
+</form>
+<script src="../model.js"></script>
+<script>
+    //When the add button is pressed Validate the form
+    document.querySelector(".Workspace-Form button").addEventListener("click", function (event) {
+        event.preventDefault();
+        //Get the Workspace name by id
+        let name = document.getElementById("WorkspaceName").value;
+        //Get the Workspace description by id
+        let description = document.getElementById("WorkspaceDes").value;
+        //Get the size by id
+        let size = document.getElementById("size").value;
+        //Get the price by id
+        let price = document.getElementById("price").value;
+        // Get the file input element
+        let input = document.querySelector(".Workspace-Form input[type='file']");
+        // Get the selected files
+        let files = input.files;
+        //Get property id from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const propertyId = urlParams.get('id');
+
+        // This will hold the data URLs
+        let photos = [];
+        for (let i = 0; i < files.length; i++) {
+            let reader = new FileReader();
+            reader.onload = function (event) {
+                let img = new Image();
+                img.onload = function () {
+                    let canvas = document.createElement('canvas');
+                    let ctx = canvas.getContext('2d');
+                    canvas.width = 100;
+                    canvas.height = 100;
+                    ctx.drawImage(img, 0, 0, 100, 100);
+                    let dataurl = canvas.toDataURL('image/png');
+                    // Add the data URL to the photos array
+                    photos.push(dataurl);
+                    // Call addWorkspace when all files are processed
+                    if (photos.length === files.length) {
+                        const res = addWorkspace(name, description, photos, size, price, propertyId);
+                        if(res.result){
+                            alert(res.message);
+                            parent.location.href = "../index.html";
+                        }else{
+                            alert(res.message);
+                        }
+                    }
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(files[i]);
+        }
+    });
+
+</script>

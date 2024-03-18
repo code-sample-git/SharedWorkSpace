@@ -82,11 +82,7 @@ function addProperty(name, description, photos, streetAddr, city, state, zip, co
         response.message = "User not logged in";
         return response;
     }
-    //Create a GUID for the property
-    const guid = () => {
-        const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-    }
+
     //form the data.
     let property = {
         id: guid(),
@@ -109,6 +105,59 @@ function addProperty(name, description, photos, streetAddr, city, state, zip, co
     }
     return response;
     //Implement the code to save the property in the database in Phase 2
+}
+
+function addWorkspace(name, description, photos, size, price, propertyId){
+    //define response format
+    let response = {
+        result: false,
+        message: ""
+    };
+
+    //Validate the user input. this also required in the backend validation
+    if (name.length < 3) {
+        response.message = "Name must be at least 3 characters long";
+        return response;
+    } else if (description.length < 6) {
+        response.message = "Description must be at least 6 characters long";
+        return response;
+    }else if (!size.length) {
+        response.message = "Size is required";
+        return response;
+    }else if (!price.length) {
+        response.message = "Price is required";
+        return response;
+    }
+       
+    //Get the user from the session
+    let user = JSON.parse(sessionStorage.getItem("user"));
+    if(user === null){
+        response.message = "User not logged in";
+        return response;
+    }
+
+    //form the data.
+    let workspace = {
+        id: getGUID(),
+        propertyId: propertyId,
+        name: name,
+        description: description,
+        photos: photos,
+        size: size,
+        price: price,
+        owner: user.username
+    };
+
+    if(addObjecttoLocalStorage(workspace, "workspaces")){
+        response.result = true;
+        response.message = "Workspace added successfully";
+    }else{
+        response.message = "Error in adding the workspace";
+    }
+    return response;
+    //Implement the code to save the workspace in the database in Phase 2
+
+
 }
 
 function loginUser(email, password) {
@@ -166,4 +215,7 @@ function getObjectFromLocalStorage(storageKey, objectKeysJson) {
 }
 
 
-
+function getGUID(){
+    const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
