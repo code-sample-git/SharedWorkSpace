@@ -2,21 +2,41 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+    margin-top: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-image: url('hk_backgroup.jpg'); /* Set the background image */
+    background-size: cover; /* Cover the entire content area */
+    background-position: center; /* Center the background image */
+    background-attachment: fixed;
+}
+
+body::before {
+    content: '';
+    position: fixed; /* Cover the entire viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.5); /* White with transparency */
+    z-index: 0; /* Ensure this is behind the content */
 }
 
 header {
     width: 100%;
-    background-color: #275cb8; /* Vibrant blue background */
     padding: 10px 20px;
     box-sizing: border-box;
     display: flex;
+    position: relative;
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.5s ease; /* Smooth transition for background color */
-}
+    z-index: 1000; /* Ensure header is above other content */
+} 
 
 header:hover {
-    background-color: #29d53b; /* Darker shade on hover for subtle interaction */
+    background-color: rgba(242, 227, 23, 0.5); /* Darker shade on hover for subtle interaction */
+    
 }
 
 
@@ -30,11 +50,11 @@ header:hover {
 
 .sidebar {
     position: fixed;
-    top: 100px; /* Adjusted to clear the header */
-    left: 0;
+    top: 100px + 1%; /* Adjusted to clear the header */
+    left: 10px + 5%; 
     width: 200px;
-    height: calc(100% - 50px); /* Adjusted height to clear the header */
-    background-color: #ddd;
+    height: calc(500px - 50px); /* Adjusted height to clear the header */
+
     padding-top: 20px;
     transition: background-color 0.5s ease; /* Smooth transition for background color */
     z-index: 1000; /* Ensure sidebar is above other content */
@@ -42,7 +62,7 @@ header:hover {
 }
 
 .sidebar:hover {
-    background-color: #29d53b; /* Darker shade on hover */
+    background-color: rgba(242, 227, 23, 0.5); /* Darker shade on hover */
 }
 
 
@@ -50,34 +70,42 @@ header:hover {
 
 .nav-menu ul {
     list-style-type: none;
-    padding: 0;
+    padding: 0.5em;
 }
+
 
 .nav-menu ul li button {
     display: block;
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     cursor: pointer;
     text-align: left;
     border: none;
     background: none;
-    text-align: left;
     color: black;
+    transition: transform 0.3s ease, font-weight 0.3s ease; /* Smooth transition for transform and font-weight */
 }
+
+.nav-menu ul li button:hover, .nav-menu ul li button:focus {
+    transform: scale(1.2); /* Enlarge button text */
+    font-weight: bold; /* Make button text bold */
+}
+
 
 .content {
     margin-left: 200px; /* Sidebar width */
-    margin-top: 50px; /* Header height */
+    margin-top: 0px; /* Header height */
     padding: 20px;
     width: calc(100% - 200px); /* Sidebar width */
     height: 100%;
+    position: fixed;
+    
+
+    
 
 }
 
-/* Optional: Add a background color to the content area for clearer separation */
-.content {
-    background-color: #f9f9f9;
-}
+
 
 /* Ensure buttons and links have a consistent style */
 button {
@@ -86,7 +114,7 @@ button {
     border: none;
     padding: 10px 15px;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 20px;
     border-radius: 5px;
 }
 
