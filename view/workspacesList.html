@@ -1,0 +1,35 @@
+<!-- This is a page to list the workspace available-->
+<div class="container">
+    <h1>Workspaces Hello</h1>
+    <div id="workspaces"></div>
+</div>
+<script src="../model.js"></script>
+<script>
+    console.log("workspacesList.js");
+    //Load the workspaces from Local Storage
+    let workspaces = JSON.parse(localStorage.getItem("workspaces")) || [];
+
+    //Get the property id from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const propertyId = urlParams.get('propertyId')
+    if (propertyId) {
+        //Find the workspaces by property id
+        workspaces = workspaces.filter(w => w.propertyId == propertyId);
+    }
+    console.log("workspaces:" + JSON.stringify(workspaces));
+
+    //Display the workspaces
+    const workspacesDiv = document.getElementById("workspaces");
+    propertyWorkspaces.forEach(workspace => {
+        const workspaceDiv = document.createElement("div");
+        workspaceDiv.className = 'workspace';
+        workspaceDiv.innerHTML = `
+            <h2>${workspace.name}</h2>
+            <p>${workspace.description}</p>
+            <p>${workspace.price}</p>
+            <p>${workspace.capacity}</p>
+            <p>${workspace.type}</p>
+            <button onclick="location.href='workspaceView.html?id=${workspace.id}'">View</button>
+        `;
+        workspacesDiv.appendChild(workspaceDiv);
+    });
