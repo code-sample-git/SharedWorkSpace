@@ -6,13 +6,19 @@ body, html {
 
 header {
     width: 100%;
-    background-color: #f0f0f0;
+    background-color: #275cb8; /* Vibrant blue background */
     padding: 10px 20px;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: background-color 0.5s ease; /* Smooth transition for background color */
 }
+
+header:hover {
+    background-color: #29d53b; /* Darker shade on hover for subtle interaction */
+}
+
 
 .banner {
     display: flex;
@@ -20,12 +26,7 @@ header {
     align-items: center;
     width: 100%;
 }
-.auth-buttons button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    cursor: pointer;
-    righ
-}
+
 
 .sidebar {
     position: fixed;
@@ -35,8 +36,17 @@ header {
     height: calc(100% - 50px); /* Adjusted height to clear the header */
     background-color: #ddd;
     padding-top: 20px;
+    transition: background-color 0.5s ease; /* Smooth transition for background color */
+    z-index: 1000; /* Ensure sidebar is above other content */
     
 }
+
+.sidebar:hover {
+    background-color: #29d53b; /* Darker shade on hover */
+}
+
+
+
 
 .nav-menu ul {
     list-style-type: none;
