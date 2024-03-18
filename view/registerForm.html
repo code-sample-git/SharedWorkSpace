@@ -2,13 +2,13 @@
 
     <h2>Register</h2>
 
-    <input type="text" placeholder="Username" required>
+    <input id="username" type="text" placeholder="Username" required>
 
-    <input type="email" placeholder="Email" required>
+    <input id="email" type="email" placeholder="Email" required>
 
-    <input type="password" placeholder="Password" required>
+    <input id="password" type="password" placeholder="Password" required>
 
-    <input name="confirmPassword" type="password" placeholder="Confirm Password" required>
+    <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" required>
 
     <button id="register" type="submit">Register</button>
 </form>
@@ -17,10 +17,15 @@
     //When the register button is pressed Validate the form
     document.getElementById("register").addEventListener("click", function (event) {
         event.preventDefault();
-        let username = document.querySelector(".register-form input[type='text']").value;
-        let email = document.querySelector(".register-form input[type='email']").value;
-        let password = document.querySelector(".register-form input[type='password']").value;
-        let confirmPassword = document.getElementsByName("confirmPassword")[0].value;
+        //Get username by id
+        let username = document.getElementById("username").value;
+        //Get email by id
+        let email = document.getElementById("email").value;
+        //Get password by id
+        let password = document.getElementById("password").value;
+        //Get confirmPassword by id
+        let confirmPassword = document.getElementById("confirmPassword").value;
+        
         const result = addUser(username, email, password, confirmPassword);
         alert(result);
     });
