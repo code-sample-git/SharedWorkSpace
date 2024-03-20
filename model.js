@@ -85,7 +85,7 @@ function addProperty(name, description, photos, streetAddr, city, state, zip, co
 
     //form the data.
     let property = {
-        id: guid(),
+        id: getGUID(),
         name: name,
         description: description,
         photos: photos,
