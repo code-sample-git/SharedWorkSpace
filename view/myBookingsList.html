@@ -1,0 +1,31 @@
+<!--Display all my booking-->
+<div class="container">
+    <h1>My Bookings</h1>
+    <div id="myBookings"></div>
+</div>
+<script src="../model.js"></script>
+<script>
+    //Load the bookings from Local Storage
+    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    //Get the user id from the session
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    //Find the bookings by user id
+    bookings = bookings.filter(b => b.userId == user.id);
+    //Display the bookings
+    const myBookingsDiv = document.getElementById("myBookings");
+    console.log("bookings:" + JSON.stringify(bookings));
+    bookings.forEach(booking => {
+        const workspace = JSON.parse(localStorage.getItem("workspaces")).find(w => w.id == booking.wid);
+        console.log("workspace:" + JSON.stringify(workspace));
+        const myBookingDiv = document.createElement("div");
+        myBookingDiv.className = 'booking';
+        myBookingDiv.innerHTML = `
+            <h2>${workspace.name}</h2>
+            <p>${workspace.description}</p>
+            <p>${workspace.price}</p>
+            <p>${booking.date} ${booking.time} ${booking.duration}</p>
+            <button onclick="location.href='ratingForm.html?id=${booking.id}'">Give Rating</button>
+        `;
+        myBookingsDiv.appendChild(myBookingDiv);
+    });
+</script>
