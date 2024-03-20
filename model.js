@@ -219,3 +219,49 @@ function getGUID(){
     const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
+
+function bookWorkspace(wid, date, time, duration){
+    //define response format
+    let response = {
+        result: false,
+        message: ""
+    };
+
+    //Validate the user input. this also required in the backend validation
+    if (!date.length) {
+        response.message = "Date is required";
+        return response;
+    }else if (!time.length) {
+        response.message = "Time is required";
+        return response;
+    }else if (!duration.length) {
+        response.message = "Duration is required";
+        return response;
+    }
+       
+    //Get the user from the session
+    let user = JSON.parse(sessionStorage.getItem("user"));
+    if(user === null){
+        response.message = "User not logged in";
+        return response;
+    }
+
+    //form the data.
+    let booking = {
+        id: getGUID(),
+        wid: wid,
+        date: date,
+        time: time,
+        duration: duration,
+        user: user.username
+    };
+
+    if(addObjecttoLocalStorage(booking, "bookings")){
+        response.result = true;
+        response.message = "Workspace booked successfully";
+    }else{
+        response.message = "Error in booking the workspace";
+    }
+    return response;
+    //Implement the code to save the booking in the database in Phase 2
+}
