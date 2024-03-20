@@ -5,7 +5,6 @@
 </div>
 <script src="../model.js"></script>
 <script>
-    console.log("workspacesList.js");
     //Load the workspaces from Local Storage
     let workspaces = JSON.parse(localStorage.getItem("workspaces")) || [];
 
@@ -16,20 +15,21 @@
         //Find the workspaces by property id
         workspaces = workspaces.filter(w => w.propertyId == propertyId);
     }
-    console.log("workspaces:" + JSON.stringify(workspaces));
+    //console.log("workspaces:" + JSON.stringify(workspaces));
 
     //Display the workspaces
     const workspacesDiv = document.getElementById("workspaces");
-    propertyWorkspaces.forEach(workspace => {
+    workspaces.forEach(workspace => {
+        console.log("adding workspace");
         const workspaceDiv = document.createElement("div");
         workspaceDiv.className = 'workspace';
         workspaceDiv.innerHTML = `
             <h2>${workspace.name}</h2>
             <p>${workspace.description}</p>
             <p>${workspace.price}</p>
-            <p>${workspace.capacity}</p>
-            <p>${workspace.type}</p>
+            <img src="${workspace.photos[0]}" alt="${workspace.name}">
             <button onclick="location.href='workspaceView.html?id=${workspace.id}'">View</button>
         `;
         workspacesDiv.appendChild(workspaceDiv);
     });
+</script>

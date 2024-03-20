@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>Workspace</h1>
+    <div id="workspace"></div>
+</div>
+<script src="../model.js"></script>
+<script>
+    //Get the workspace id from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+
+    //Load the workspaces from Local Storage
+    let workspaces = JSON.parse(localStorage.getItem("workspaces")) || [];
+    //Find the workspace by id
+    const workspace = workspaces.find(w => w.id == id);
+    console.log(JSON.stringify(workspace));
+    //Display the workspace
+    const workspaceDiv = document.getElementById("workspace");
+    workspaceDiv.innerHTML = `
+        <h2>${workspace.name}</h2>
+        <p>${workspace.description}</p>
+        <p>${workspace.price}</p>
+        <img src="${workspace.photos[0]}" alt="${workspace.name}">
+        <button onclick="location.href='workspaceForm.html?id=${workspace.id}'">Edit</button>
+        <button onclick="location.href='bookForm.html?wid=${workspace.id}'">Book this Workspaces</button>
+    `;
+</script>
