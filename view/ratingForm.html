@@ -1,0 +1,33 @@
+<form class="rating-form">
+    <div class="form-group">
+        <label for="rating">Rating</label>
+        <input type="number" id="rating" required>
+    </div>
+    <div class="form-group">
+        <label for="comment">Comment</label>
+        <textarea id="comment" required></textarea>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+<script src="../model.js"></script>
+<script>
+    //When the submit button is pressed Validate the form
+    document.querySelector(".rating-form button").addEventListener("click", function (event) {
+        event.preventDefault();
+        //Get the rating by id
+        let rating = document.getElementById("rating").value;
+        //Get the comment by id
+        let comment = document.getElementById("comment").value;
+        //Get the booking id from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const wid = urlParams.get('id');
+        //Call the rateBooking function
+        const res = rateBooking(wid, rating, comment);
+        if(res.result){
+            alert(res.message);
+            location.href = "myBookingsList.html";
+        }else{
+            alert(res.message);
+        }
+    });
+</script>

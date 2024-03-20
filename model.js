@@ -265,3 +265,41 @@ function bookWorkspace(wid, date, time, duration){
     return response;
     //Implement the code to save the booking in the database in Phase 2
 }
+
+function rateBooking(wid, rating, comment){
+    //define response format
+    let response = {
+        result: false,
+        message: ""
+    };
+
+    //Validate the user input. this also required in the backend validation
+    if (!rating.length) {
+        response.message = "Rating is required";
+        return response;
+    }
+       
+    //Get the user from the session
+    let user = JSON.parse(sessionStorage.getItem("user"));
+    if(user === null){
+        response.message = "User not logged in";
+        return response;
+    }
+
+    //form the data.
+    let booking = {
+        wid: wid,
+        rating: rating,
+        comment: comment,
+        user: user.username
+    };
+
+    if(addObjecttoLocalStorage(booking, "ratings")){
+        response.result = true;
+        response.message = "Rating added successfully";
+    }else{
+        response.message = "Error in adding the rating";
+    }
+    return response;
+    //Implement the code to save the rating in the database in Phase 2
+}
