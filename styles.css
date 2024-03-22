@@ -41,6 +41,9 @@ header:hover {
     
 }
 
+
+
+
 h1 {
     margin: 0; /* Adjusted margin to clear the header */
     color: #fff;
@@ -74,15 +77,14 @@ h1 {
 
 
 .sidebar {
-    position: fixed;
+    position: relative;
     top: 100px + 1%; /* Adjusted to clear the header */
-    left: 10px + 5%; 
-    width: 200px;
+    width: 250px;
     height: calc(800px - 50px); /* Adjusted height to clear the header */
-
     padding-top: 20px;
     transition: background-color 0.5s ease; /* Smooth transition for background color */
     z-index: 1000; /* Ensure sidebar is above other content */
+
     
 }
 
@@ -118,12 +120,13 @@ h1 {
 
 
 .content {
-    margin-left: 200px; /* Sidebar width */
+    margin-left: 15%; /* Sidebar width */
     margin-top: 0px; /* Header height */
     padding: 20px;
     width: calc(100% - 200px); /* Sidebar width */
     height: auto;
     position: relative;
+
     
 }
 
@@ -146,9 +149,14 @@ button:hover {
 
 .container {
     max-width: 1200px;
-    margin: auto;
     padding: 20px;
+    display: flex; /* Enables Flexbox layout */
+    align-items: start; /* Aligns items to the start of the flex container */
+    box-sizing: border-box;
+    width: 100%;
+
 }
+
 
 .controls {
     text-align: center;
