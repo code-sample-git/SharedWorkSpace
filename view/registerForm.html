@@ -53,6 +53,16 @@
     background-color: #0056b3;
 }
 
+.form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+}
+
 </style> 
 
 <form class="form">
@@ -66,6 +76,12 @@
     <input id="password" type="password" placeholder="Password" required>
 
     <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" required>
+
+    <select id="role" required>
+        <option value="">Select role</option>
+        <option value="co-worker">Co-worker</option>
+        <option value="owner">Owner</option>
+    </select>
 
     <button id="register" type="submit">Register</button>
 </form>
