@@ -1,4 +1,65 @@
+<style>
 
+    /* Container Styling */
+.container {
+    max-width: 800px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+/* Header Styling */
+.container h1 {
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Property Details Styling */
+#property h2 {
+    color: black; /* Adds a highlight color to the property name */
+    margin-bottom: 15px;
+}
+
+#property p {
+    font-size: 16px;
+    color: black; /* Dark gray color for text for better readability */
+    margin: 5px 0; /* Adds a little space between paragraphs */
+}
+
+#property img {
+    width: 100%; /* Ensures the image is responsive and fits within the container */
+    height: auto;
+    border-radius: 4px; /* Adds slight rounding to the corners of the image */
+    margin-top: 15px; /* Adds space between the image and the last paragraph */
+}
+
+/* Button Styling */
+#property button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 10px 5px 0 0; /* Adds space around buttons */
+    transition: background-color 0.3s;
+}
+
+#property button:hover {
+    background-color: #0056b3; /* Darkens the button on hover for interactivity */
+}
+
+/* Additional Styling for the "Add workspace to this property" button for differentiation */
+#property button:nth-of-type(2) {
+    background-color: #28a745; /* A green color for a secondary action */
+}
+
+#property button:nth-of-type(2):hover {
+    background-color: #218838; /* A darker green on hover */
+}
+
+</style>
 
 
 <div class="container">

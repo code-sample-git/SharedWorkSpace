@@ -1,3 +1,65 @@
+<style>
+/* Basic Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif; /* Consistent font throughout the form */
+    overflow: hidden;
+}
+
+.Workspace-Form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Workspace-Form h2 {
+    text-align: center;
+    color: black;
+    margin-bottom: 20px; /* Space between title and first input */
+}
+
+.Workspace-Form input[type="text"],
+.Workspace-Form input[type="number"],
+.Workspace-Form textarea,
+.Workspace-Form input[type="file"] {
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 10px;
+    margin-bottom: 15px; /* Space between inputs */
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.Workspace-Form textarea {
+    height: 100px; /* Enough space for description */
+    resize: vertical; /* Allows the user to resize textarea vertically */
+}
+
+.Workspace-Form button {
+    width: calc(100% - 20px);
+    padding: 10px;
+    background-color: #007bff; /* Primary button color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.Workspace-Form button:hover {
+    background-color: #0056b3; /* Button hover state for better user interaction */
+}
+
+
+</style>
+
+
 <!-- A form to add new Workspace-->
 <form class="Workspace-Form">
     <h2>Add New Workspace</h2>

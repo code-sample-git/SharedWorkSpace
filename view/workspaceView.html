@@ -1,3 +1,83 @@
+<style>
+/* Basic Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.container h1, .container h2 {
+    text-align: center;
+    color: black;
+}
+
+.container h1 {
+    margin-bottom: 30px;
+}
+
+#workspace {
+    padding: 20px;;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+#workspace h2 {
+    margin-bottom: 15px;
+    color: black;
+}
+
+#workspace p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: black;
+}
+
+#workspace img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+#workspace button {
+    display: inline-block; /* Display buttons side by side */
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px; /* Space between buttons */
+    text-decoration: none;
+}
+
+#workspace button:hover {
+    background-color: #218838;
+}
+
+#workspace button:last-child {
+    margin-right: 0; /* Remove margin for the last button */
+}
+
+
+</style>
+
+
 <div class="container">
     <h1>Workspace</h1>
     <div id="workspace"></div>
