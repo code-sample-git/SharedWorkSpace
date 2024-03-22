@@ -175,47 +175,6 @@ function loginUser(email, password) {
     //Implement the code to check the user from the database in Phase 2
 }
 
-function addObjecttoLocalStorage(object, storageKey) {
-    try{
-        //save the user to the local storage
-        var data = JSON.parse(localStorage.getItem(storageKey));
-        if (data === null) {
-            data = [];
-        }
-        data.push(object);
-        localStorage.setItem(storageKey, JSON.stringify(data));
-        return true;
-    }catch(e){
-        return false;
-    }
-}
-
-function getObjectFromLocalStorage(storageKey, objectKeysJson) {
-    var data = JSON.parse(localStorage.getItem(storageKey));
-    if (data === null) {
-        return [];
-    }
-    //Find the objects that has all the keys and values in the objectKeysJson
-    
-    var resultset = [];
-    data.forEach(function (item, index) {
-        var found = true;
-        objectKeysLoop:
-        for (var key in objectKeysJson) {
-            if (item[key] !== objectKeysJson[key]) {
-                found = false;
-                break objectKeysLoop;
-            }
-        }
-        if (found) {
-            resultset.push(item);
-        }
-    });
-
-    return resultset;
-}
-
-
 function getGUID(){
     const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
@@ -314,4 +273,44 @@ function getRating(wid){
     });
     let avgRating = total/ratings.length;
     return avgRating;
+}
+
+function addObjecttoLocalStorage(object, storageKey) {
+    try{
+        //save the user to the local storage
+        var data = JSON.parse(localStorage.getItem(storageKey));
+        if (data === null) {
+            data = [];
+        }
+        data.push(object);
+        localStorage.setItem(storageKey, JSON.stringify(data));
+        return true;
+    }catch(e){
+        return false;
+    }
+}
+
+function getObjectFromLocalStorage(storageKey, objectKeysJson) {
+    var data = JSON.parse(localStorage.getItem(storageKey));
+    if (data === null) {
+        return [];
+    }
+    //Find the objects that has all the keys and values in the objectKeysJson
+    
+    var resultset = [];
+    data.forEach(function (item, index) {
+        var found = true;
+        objectKeysLoop:
+        for (var key in objectKeysJson) {
+            if (item[key] !== objectKeysJson[key]) {
+                found = false;
+                break objectKeysLoop;
+            }
+        }
+        if (found) {
+            resultset.push(item);
+        }
+    });
+
+    return resultset;
 }
