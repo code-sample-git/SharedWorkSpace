@@ -86,10 +86,24 @@ button:hover {
     box-sizing: border-box;
 }
 
+.input {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+}
+
 
 </style>
 
-
+<div>
+    <!--Searching-->
+    <input type="text" id="search" placeholder="Search for properties">
+    <button onclick="search()">Search</button>
+    <button onclick="displayProperties(properties)">Reset</button>
+</div>
 <div class="container">
     <h1>Properties</h1>
     <!-- A add New Property Butto-->
