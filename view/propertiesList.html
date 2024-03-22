@@ -1,3 +1,95 @@
+<style>
+/* Container styling */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* You can choose another font */
+    background-image: none !important;
+    background-color: transparent !important;
+    overflow: hidden;
+    height: 100%
+}
+
+.container {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+
+}
+
+/* Header styling */
+.container h1 {
+    color: #333;
+    text-align: center;
+}
+
+/* Button styling */
+button {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 5px; /* Spacing around buttons */
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Controls div styling for additional control buttons */
+.controls {
+    text-align: center; /* Centers the control buttons */
+}
+
+/* Items and property item styling */
+#items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Spacing between grid items */
+    padding: 20px 0;
+}
+
+.item {
+    border: 1px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.item:hover {
+    transform: translateY(-5px); /* Adds a slight lift effect on hover */
+}
+
+.item h2 {
+    font-size: 20px;
+    margin: 10px;
+}
+
+.item img {
+    width: 100%; /* Makes image fill the container */
+    height: auto;
+    display: block;
+}
+
+.item p {
+    margin: 0 10px 10px;
+    color: black;
+}
+
+.item button {
+    display: block;
+    width: calc(100% - 20px); /* Full width minus margin for visual consistency */
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+
+</style>
+
+
 <div class="container">
     <h1>Properties</h1>
     <!-- A add New Property Butto-->

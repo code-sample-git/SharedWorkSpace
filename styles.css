@@ -56,7 +56,7 @@ h1 {
     font-size: 1em;
     margin-top: 10px;
     font-weight: normal;
-    color: #fff;
+    color: black;
     animation: blink-animation 5s linear infinite; /* Apply the blink animation */
   }
   
