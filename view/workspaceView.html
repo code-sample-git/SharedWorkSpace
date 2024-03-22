@@ -100,6 +100,8 @@ body {
         <p>${workspace.description}</p>
         <p>${workspace.price}</p>
         <img src="${workspace.photos[0]}" alt="${workspace.name}">
+        <!--rating-->
+        <p>Rating: ${getRating(workspace.id)}</p>
         <button onclick="location.href='workspaceForm.html?id=${workspace.id}'">Edit</button>
         <button onclick="location.href='bookForm.html?wid=${workspace.id}'">Book this Workspaces</button>
     `;

@@ -18,7 +18,7 @@ const showPage = (page) => {
     content.appendChild(obj);
 }
 
-function addUser(username, email, password, confirmPassword) {
+function addUser(username, email, role, password, confirmPassword) {
     //Validate the user input. this also required in the backend validation
     if (username.length < 3) {
         return "Username must be at least 3 characters long";
@@ -34,7 +34,8 @@ function addUser(username, email, password, confirmPassword) {
     let user = {
         username: username,
         email: email,
-        password: password
+        password: password,
+        role: role
     };
 
     if(addObjecttoLocalStorage(user, "users")){
@@ -302,4 +303,15 @@ function rateBooking(wid, rating, comment){
     }
     return response;
     //Implement the code to save the rating in the database in Phase 2
+}
+
+function getRating(wid){
+    let ratings = getObjectFromLocalStorage("ratings", {wid: wid});
+    //Calculate the average rating
+    let total = 0;
+    ratings.forEach(function (item, index) {
+        total += parseInt(item.rating);
+    });
+    let avgRating = total/ratings.length;
+    return avgRating;
 }

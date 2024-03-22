@@ -98,8 +98,10 @@
         let password = document.getElementById("password").value;
         //Get confirmPassword by id
         let confirmPassword = document.getElementById("confirmPassword").value;
+        //Get role by id
+        let role = document.getElementById("role").value;
         
-        const result = addUser(username, email, password, confirmPassword);
+        const result = addUser(username, email, role, password, confirmPassword);
         alert(result);
     });
 
