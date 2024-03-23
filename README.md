@@ -22,19 +22,10 @@ A step by step series of examples that tell you how to get a development environ
 3. Install dependencies: `npm install` or `yarn install`
 4. Start the development server: `npm start` or `yarn start`
 
-## Running the tests
-
-Explain how to run the automated tests for this system.
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system.
 
 ## Built With
 
-* [React](http://www.reactjs.org/) - The web framework used
-* [Redux](https://redux.js.org/) - State management
-* [Material-UI](https://material-ui.com/) - UI library
+html, javascript, css
 
 ## Contributing
 
@@ -42,16 +33,10 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Authors
 
-* **Your Name** - *Initial work* - [YourName](https://github.com/YourName)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Michael Ng**
+* **Ethan Wai**
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
