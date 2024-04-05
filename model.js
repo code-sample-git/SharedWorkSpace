@@ -49,7 +49,7 @@ function addUser(username, email, role, password, confirmPassword, phone) {
     return {"result": result, "message": respponseMessage};
 }
 
-function addProperty(name, description, photos, streetAddr, city, state, zip, country){
+function addProperty(name, description, photos, streetAddr, city, state, zip, country, parkingAvailable, publicTransport){
     //define response format
     let response = {
         result: false,
@@ -78,8 +78,14 @@ function addProperty(name, description, photos, streetAddr, city, state, zip, co
     }else if (!country.length) {
         response.message = "Country is required";
         return response;
+    }else if (!parkingAvailable.length) {
+        response.message = "Parking Available is required";
+        return response;
+    }else if(!publicTransport.length){
+        response.message = "Public Transport is required";
+        return response;
     }
-       
+
     //Get the user from the session
     let user = JSON.parse(sessionStorage.getItem("user"));
     if(user === null){
@@ -89,7 +95,6 @@ function addProperty(name, description, photos, streetAddr, city, state, zip, co
 
     //form the data.
     let property = {
-        id: getGUID(),
         name: name,
         description: description,
         photos: photos,
@@ -98,17 +103,32 @@ function addProperty(name, description, photos, streetAddr, city, state, zip, co
         state: state,
         zip: zip,
         country: country,
-        owner: user.username
+        parkingAvailable: parkingAvailable,
+        publicTransport: publicTransport,
+        owner: user.id
     };
 
-    if(addObjecttoLocalStorage(property, "properties")){
+    const res = callBackendApi("/properties", "POST", property);
+    if(res){
         response.result = true;
         response.message = "Property added successfully";
     }else{
         response.message = "Error in adding the property";
     }
     return response;
-    //Implement the code to save the property in the database in Phase 2
+}
+
+function getProperties(id, search){
+    
+    //add search to the query string
+    if(id){
+        return callBackendApi("/properties?id=" + id, "GET", {});
+    }
+    if(search){
+        return callBackendApi("/properties?search=" + search, "GET", {});
+    }else{
+        return callBackendApi("/properties", "GET", {});
+    }
 }
 
 function addWorkspace(name, description, photos, size, price, propertyId){
@@ -166,7 +186,8 @@ function addWorkspace(name, description, photos, size, price, propertyId){
 
 function loginUser(email, password) {
     //call the backend API to validate the user
-    const token = callBackendApi("/users/login", "POST", {email: email, password: password});
+    const response = callBackendApi("/users/login", "POST", {email: email, password: password});
+    const token = response.token;
     if(token){
         //Get the payload from the token
         const payload = JSON.parse(atob(token.split('.')[1]));
@@ -341,14 +362,16 @@ function callBackendApi(path, method, data){
     const Http = new XMLHttpRequest();
     Http.open(method, url, false);
     Http.setRequestHeader("Content-Type", "application/json");
+    //add the token to the header
+    Http.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem("token"));
     Http.send(JSON.stringify(data));
 
-    console.log("Response: " + Http.responseText);
-    console.log("Status: " + Http.status);
+    console.log("HttpResponse: " + Http.response);
+    console.log("HttpResponseType: " + typeof Http.response);
 
     //if status is 2xx then return the response
     if(Http.status.toString().startsWith("2")){
-        return Http.responseText;
+        return JSON.parse(Http.response);
     }
     return null;
 }

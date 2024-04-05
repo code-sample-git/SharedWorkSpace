@@ -73,10 +73,7 @@
     const id = urlParams.get('id');
 
     //Load the properties from Local Storage
-    let properties = JSON.parse(localStorage.getItem("properties")) || [];
-    //Find the property by id
-    const property = properties.find(p => p.id == id);
-    console.log(JSON.stringify(property));
+    let property = getProperties(id)
     //Display the property
     const propertyDiv = document.getElementById("property");
     propertyDiv.innerHTML = `
@@ -91,6 +88,5 @@
         <button onclick="location.href='propertyForm.html?id=${property.id}'">Edit</button>
         <button onclick="location.href='propertyForm.html?id=${property.id}'">Delete</button>
         <button onclick="location.href='workspaceForm.html?id=${property.id}'">Add workspace to this property</button>
-        <b
     `;
 </script>

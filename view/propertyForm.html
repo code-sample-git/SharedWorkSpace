@@ -60,6 +60,15 @@ body, html {
     border: 1px dashed #ccc;
 }
 
+.property-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+}
 </style>
 
 
@@ -73,7 +82,11 @@ body, html {
     <input id="state" type="text" placeholder="State" required>
     <input id="zip" type="text" placeholder="Zip" required>
     <input id="country" type="text" placeholder="Country" required>
-    <input id="parkingAvailable" type="text" placeholder="Is Parking Available?" required>
+    <select id="parkingAvailable" required>
+        <option value="">Is Parking Available?</option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
     <input id="PublicTransport" type="text" placeholder="Is public Transport Available?" required>
     <!-- get images-->
     <input type="file" multiple accept="image/png, image/jpeg, image/jpg, image/gif" required>
@@ -84,6 +97,7 @@ body, html {
     //When the add button is pressed Validate the form
     document.querySelector(".property-form button").addEventListener("click", function (event) {
         event.preventDefault();
+        console.log("Add button pressed");
         //Get the property name by id
         let name = document.getElementById("propertyName").value;
         //Get the property description by id
@@ -98,11 +112,21 @@ body, html {
         let zip = document.getElementById("zip").value;
         //Get the country by id
         let country = document.getElementById("country").value;
+        //Get the parking available by id
+        let parkingAvailable = document.getElementById("parkingAvailable").value;
+        //Get the public transport by id
+        let publicTransport = document.getElementById("PublicTransport").value;
 
         // Get the file input element
         let input = document.querySelector(".property-form input[type='file']");
         // Get the selected files
         let files = input.files;
+
+        if(files.length === 0){
+            modelAlert("Please select at least one image");
+            return;
+        }
+
         // This will hold the data URLs
         let photos = [];
 
@@ -124,12 +148,11 @@ body, html {
 
                     // Call addProperty when all files are processed
                     if (photos.length === files.length) {
-                        const res = addProperty(name, description, photos, streetAddr, city, state, zip, country);
+                        const res = addProperty(name, description, photos, streetAddr, city, state, zip, country, parkingAvailable, publicTransport);
                         if(res.result){
-                            alert("Property added successfully");
-                            location.href = "propertiesList.html";
+                            modelAlert("Property added successfully", "propertiesList");
                         }else{
-                            alert(res.message);
+                            modelAlert(res.message);
                         }
                     }
                 }

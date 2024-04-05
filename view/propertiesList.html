@@ -137,21 +137,24 @@ input[type="text"] {
     }
 
     //Load the properties from Local Storage
-    let properties = JSON.parse(localStorage.getItem("properties")) || [];
+    let properties = getProperties() || [];
+    
     //Display the properties
     displayProperties(properties);
     function displayProperties(properties) {
         const items = document.getElementById("items");
         items.innerHTML = "";
+        console.log("type: " + typeof properties);
+        
         properties.forEach(property => {
             const item = document.createElement("div");
             item.className = 'item';
             item.classList.add("property");
             item.innerHTML = `
-                <h2>${property.name}</h2>
-                <img src="${property.photos[0]}" alt="${property.name}">
-                <p>${property.city}, ${property.state}, ${property.country}</p>
-                <button onclick="location.href='propertyView.html?id=${property.id}'">View</button>
+                <h2>${property?.name}</h2>
+                <img src="${property?.photos[0]}" alt="${property?.name}">
+                <p>${property.city}, ${property?.state}, ${property?.country}</p>
+                <button onclick="location.href='propertyView.html?id=${property?._id}'">View</button>
             `;
             items.appendChild(item);
         });
