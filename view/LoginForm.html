@@ -68,10 +68,10 @@
         let password = document.querySelector(".login-form input[type='password']").value;
         const res = loginUser(email, password);
         if (res.result) {
-            //redirect to home page if result is success
-            parent.location.href = "../index.html";
+            //refresh the parent page to home
+            parent.window.location.href = "/";
         }else{
-            alert(res.message);
+            modelAlert(res.message);
         }
     });
 

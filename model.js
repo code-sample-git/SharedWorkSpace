@@ -165,17 +165,30 @@ function addWorkspace(name, description, photos, size, price, propertyId){
 }
 
 function loginUser(email, password) {
-    //Query the local storage to get the user and validate the password
-    let users = getObjectFromLocalStorage("users", {email: email, password: password});
-    if(users.length === 0){
-        return {"result": false, "message":"User not found"};
-    }else{
-        //Login Success and save the user to the session
-        sessionStorage.setItem("user", JSON.stringify(users[0]));
-        
+    //call the backend API to validate the user
+    const token = callBackendApi("/users/login", "POST", {email: email, password: password});
+    if(token){
+        //Get the payload from the token
+        const payload = JSON.parse(atob(token.split('.')[1]));
+
+        //Get the information from the payload
+        const user = {
+            "id": payload.id,
+            "username": payload.name,
+            "email": payload.email,
+            "phone": payload.phone,
+            "role": payload.role
+        };
+        sessionStorage.setItem("user", JSON.stringify(user));
+
+        //save the token in the session storage
+        sessionStorage.setItem("token", token);
+
         return {"result": true, "message":"Login Success"}
+    }else{
+        return {"result": false, "message":"Login Failure"};
     }
-    //Implement the code to check the user from the database in Phase 2
+
 }
 
 function getGUID(){
