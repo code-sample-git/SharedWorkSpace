@@ -18,32 +18,35 @@ const showPage = (page) => {
     content.appendChild(obj);
 }
 
-function addUser(username, email, role, password, confirmPassword) {
+function addUser(username, email, role, password, confirmPassword, phone) {
+    let respponseMessage, result=false;
     //Validate the user input. this also required in the backend validation
     if (username.length < 3) {
-        return "Username must be at least 3 characters long";
+        respponseMessage = "Username must be at least 3 characters long";
     } else if (email.length < 6) {
-        return "Email must be at least 6 characters long";
+        respponseMessage = "Email must be at least 6 characters long";
     } else if (password.length < 6) {
-        return "Password must be at least 6 characters long";
+        respponseMessage = "Password must be at least 6 characters long";
     } else if (password !== confirmPassword) {
-        return "Passwords do not match";
-    }
-
-    //form the data.
-    let user = {
-        username: username,
-        email: email,
-        password: password,
-        role: role
-    };
-
-    if(addObjecttoLocalStorage(user, "users")){
-        return "User added successfully";
+        respponseMessage = "Passwords do not match";
     }else{
-        return "Error in adding the user";
+        //form the data.
+        let user = {
+            name: username,
+            email: email,
+            phone: phone, 
+            password: password,
+            role: role
+        };
+        if(callBackendApi("/users/signup", "POST", user)){
+            respponseMessage = "User added successfully";
+            result = true;
+        }else{
+            respponseMessage = "Error in adding the user";
+        }
     }
-    //Implement the code to save the user in the database in Phase 2
+
+    return {"result": result, "message": respponseMessage};
 }
 
 function addProperty(name, description, photos, streetAddr, city, state, zip, country){
@@ -313,4 +316,104 @@ function getObjectFromLocalStorage(storageKey, objectKeysJson) {
     });
 
     return resultset;
+}
+
+function callBackendApi(path, method, data){
+    console.log("Calling the backend API");
+    console.log("Path: " + path);
+    console.log("Method: " + method);
+    console.log("Data: " + JSON.stringify(data));
+
+    const url = "http://localhost:3000/api" + path;
+    const Http = new XMLHttpRequest();
+    Http.open(method, url, false);
+    Http.setRequestHeader("Content-Type", "application/json");
+    Http.send(JSON.stringify(data));
+
+    console.log("Response: " + Http.responseText);
+    console.log("Status: " + Http.status);
+
+    //if status is 2xx then return the response
+    if(Http.status.toString().startsWith("2")){
+        return Http.responseText;
+    }
+    return null;
+}
+
+function modelAlert(message, redirectPage){
+    //create the alert element and it should have a close button to remove the alert. A listenser for ESC key to remove the alert.
+    let alert = document.createElement("div");
+    alert.className = "alert";
+    alert.innerHTML = message;
+
+    //Create the close button. It should be under the alert message and label should be "Close"
+    let close = document.createElement("button");
+    close.className = "close";
+    close.innerHTML = "Close";
+
+    //add a line break before the close button
+    alert.appendChild(document.createElement("br"));
+    alert.appendChild(document.createElement("br"));
+    alert.appendChild(close);
+
+    let background = document.createElement("div");
+    background.className = "background";
+    background.style.position = "fixed";
+    background.style.top = "0";
+    background.style.left = "0";
+    background.style.width = "100%";
+    background.style.height = "100%";
+    background.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+    background.style.zIndex = "9999";
+
+    parent.document.body.appendChild(background);
+
+    //The alert should be appended in the center top of the screen and the background should be darkened
+    alert.style.position = "fixed";
+    alert.style.top = "10%";
+    alert.style.left = "50%";
+    alert.style.transform = "translate(-50%, -50%)";
+    alert.style.zIndex = "1000";
+    alert.style.backgroundColor = "white";
+    alert.style.padding = "20px";
+    alert.style.border = "1px solid black";
+    alert.style.borderRadius = "5px";
+    alert.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+    alert.style.width = "300px";
+    alert.style.textAlign = "center";
+    alert.style.fontFamily = "Arial, sans-serif";
+    alert.style.fontSize = "16px";
+    alert.style.color = "black";
+    alert.style.overflow = "auto";
+    alert.style.maxHeight = "300px";
+    alert.style.backgroundColor = "rgba(255, 255, 255, 0.9)";
+    alert.style.zIndex = "10000";
+    alert.style.overflow = "auto";
+    alert.style.maxHeight = "300px";
+    alert.style.borderRadius = "5px";
+    alert.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+
+    parent.document.body.appendChild(alert);
+
+    //close the alert when the close button is clicked
+    alert.querySelector(".close").addEventListener("click", function(){
+        alert.remove();
+        background.remove();
+
+        if(redirectPage){
+            showPage(redirectPage);
+        }
+    });
+
+    //close the alert when the ESC key is pressed
+    document.addEventListener("keydown", function(event){
+        if(event.key === "Escape"){
+            alert.remove();
+            background.remove();
+            if(redirectPage){
+                showPage(redirectPage);
+            }
+        }
+    });
+    
 }

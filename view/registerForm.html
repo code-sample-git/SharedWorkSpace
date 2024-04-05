@@ -72,6 +72,7 @@
     <input id="username" type="text" placeholder="Username" required>
 
     <input id="email" type="email" placeholder="Email" required>
+    <input id="phone" type="text" placeholder="Phone" required>
 
     <input id="password" type="password" placeholder="Password" required>
 
@@ -79,7 +80,7 @@
 
     <select id="role" required>
         <option value="">Select role</option>
-        <option value="co-worker">Co-worker</option>
+        <option value="coworker">Co-worker</option>
         <option value="owner">Owner</option>
     </select>
 
@@ -100,9 +101,17 @@
         let confirmPassword = document.getElementById("confirmPassword").value;
         //Get role by id
         let role = document.getElementById("role").value;
+        //Get Phone by id
+        let phone = document.getElementById("phone").value;
         
-        const result = addUser(username, email, role, password, confirmPassword);
-        alert(result);
+        const response = addUser(username, email, role, password, confirmPassword, phone);
+
+        if(response.result){
+            modelAlert(response.message, 'propertiesList');
+
+        }else{
+            modelAlert(response.message);
+        }
     });
 
 </script>
