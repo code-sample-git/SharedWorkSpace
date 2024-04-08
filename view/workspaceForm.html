@@ -55,7 +55,15 @@ body {
 .Workspace-Form button:hover {
     background-color: #0056b3; /* Button hover state for better user interaction */
 }
-
+.Workspace-Form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+}
 
 </style>
 
@@ -65,10 +73,27 @@ body {
     <h2>Add New Workspace</h2>
     <input id="WorkspaceName" type="text" placeholder="Workspace Name" required>
     <textarea id="WorkspaceDes" placeholder="Description" required></textarea>
+    <select id="type" required>
+        <option value="private office">private office</option>
+        <option value="meeting room">meeting room</option>
+        <option value="desk">desk</option>
+    </select>
     <input id="size" type="number" placeholder="Size" required>
+    <select id="leaseTerm" required>
+        <option value="">Lease Term</option>
+        <option value="day">Day</option>
+        <option value="week">Week</option>
+        <option value="month">Month</option>
+    </select>
     <input id="price" type="number" placeholder="Price" required>
     <input id="seat" type="number" placeholder="How many Seats?" required>
-    <input id="isSmokingAlloww" type="text" placeholder="Is Smoke Allowed?" required>
+    <select id="isSmokingAlloww" required>
+        <option value="">Is Smoke Allowed?</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+    <!--Date Picker-->
+    <input type="date" id="availabilityDate" required>
     <!-- get images-->
     <input type="file" multiple accept="image/png, image/jpeg, image/jpg, image/gif" required>
     <button type="submit">Add</button>
@@ -94,6 +119,22 @@ body {
         const urlParams = new URLSearchParams(window.location.search);
         const propertyId = urlParams.get('id');
 
+        //Get lease term by id
+        let leaseTerm = document.getElementById("leaseTerm").value;
+
+        //Get availabilityDate by id
+        let availabilityDate = document.getElementById("availabilityDate").value;
+
+        let seat = document.getElementById("seat").value;
+
+        let isSmokingAlloww = document.getElementById("isSmokingAlloww").value;
+
+        let type = document.getElementById("type").value;
+
+        if (files.length === 0) {
+            alert('Select one or more files.');
+            return;
+        }
         // This will hold the data URLs
         let photos = [];
         for (let i = 0; i < files.length; i++) {
@@ -111,12 +152,11 @@ body {
                     photos.push(dataurl);
                     // Call addWorkspace when all files are processed
                     if (photos.length === files.length) {
-                        const res = addWorkspace(name, description, photos, size, price, propertyId);
+                        const res = addWorkspace(name, description, photos, size, price, propertyId, leaseTerm, availabilityDate, seat, isSmokingAlloww, type);
                         if(res.result){
-                            alert(res.message);
-                            parent.location.href = "../index.html";
+                            modelAlert(res.message, "workspacesList");
                         }else{
-                            alert(res.message);
+                            modelAlert(res.message);
                         }
                     }
                 };

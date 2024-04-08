@@ -90,22 +90,15 @@ body, html {
 </div>
 <script src="../model.js"></script>
 <script>
-    //Load the workspaces from Local Storage
-    let workspaces = JSON.parse(localStorage.getItem("workspaces")) || [];
-
     //Get the property id from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const propertyId = urlParams.get('propertyId')
-    if (propertyId) {
-        //Find the workspaces by property id
-        workspaces = workspaces.filter(w => w.propertyId == propertyId);
-    }
-    //console.log("workspaces:" + JSON.stringify(workspaces));
 
-    //Display the workspaces
+    //Load the workspaces from Local Storage
+    let workspaces = getWorkspaces(propertyId) || [];
+
     const workspacesDiv = document.getElementById("workspaces");
     workspaces.forEach(workspace => {
-        console.log("adding workspace");
         const workspaceDiv = document.createElement("div");
         workspaceDiv.className = 'workspace';
         workspaceDiv.innerHTML = `
@@ -113,7 +106,7 @@ body, html {
             <p>${workspace.description}</p>
             <p>${workspace.price}</p>
             <img src="${workspace.photos[0]}" alt="${workspace.name}">
-            <button onclick="location.href='workspaceView.html?id=${workspace.id}'">View</button>
+            <button onclick="location.href='workspaceView.html?propertyId=${workspace.property?._id}&id=${workspace._id}'">View</button>
         `;
         workspacesDiv.appendChild(workspaceDiv);
     });

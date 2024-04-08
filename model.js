@@ -131,7 +131,7 @@ function getProperties(id, search){
     }
 }
 
-function addWorkspace(name, description, photos, size, price, propertyId){
+function addWorkspace(name, description, photos, size, price, propertyId, leaseTerm, availableDate, seat, allowsSmoking, type){
     //define response format
     let response = {
         result: false,
@@ -162,26 +162,38 @@ function addWorkspace(name, description, photos, size, price, propertyId){
 
     //form the data.
     let workspace = {
-        id: getGUID(),
-        propertyId: propertyId,
+        property: propertyId,
         name: name,
         description: description,
-        photos: photos,
-        size: size,
+        type: type,
+        seats: seat,
+        allowsSmoking: allowsSmoking,
+        availabilityDate: availableDate,
+        leaseTerm: leaseTerm,
         price: price,
-        owner: user.username
+        photos: photos,
+        size: size
     };
 
-    if(addObjecttoLocalStorage(workspace, "workspaces")){
+    const res = callBackendApi("/properties/"+propertyId+"/workspaces", "POST", workspace);
+    if(res){
         response.result = true;
         response.message = "Workspace added successfully";
     }else{
         response.message = "Error in adding the workspace";
     }
     return response;
-    //Implement the code to save the workspace in the database in Phase 2
 
+}
 
+function getWorkspaces(propertyId, id){
+    if(!propertyId){
+        return callBackendApi("/workspaces/search", "GET", {});
+    }
+    if(id){
+        return callBackendApi("/properties/" + propertyId + "/workspaces/" + id, "GET", {});
+    }
+    return callBackendApi("/properties/" + propertyId + "/workspaces", "GET", {});
 }
 
 function loginUser(email, password) {
