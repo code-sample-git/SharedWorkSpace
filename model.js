@@ -199,7 +199,7 @@ function getWorkspaces(propertyId, id) {
 function loginUser(email, password) {
     //call the backend API to validate the user
     const response = callBackendApi("/users/login", "POST", { email: email, password: password });
-    const token = response.token;
+    const token = response?.token;
     if (token) {
         //Get the payload from the token
         const payload = JSON.parse(atob(token.split('.')[1]));
