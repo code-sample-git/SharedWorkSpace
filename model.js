@@ -373,10 +373,10 @@ function callBackendApi(path, method, data) {
     //get url from browser
     const browserUrl = window.location.href;
     let backendEndpoint;
-    if (browserUrl.includes("localhost")) {
+    if (browserUrl.includes("localhost") || browserUrl.includes("127.0.0.1")) {
         backendEndpoint = "http://localhost:3000";
     } else {
-        backendEndpoint = "https://sharedworkspacebackend.onrender.com/";
+        backendEndpoint = "https://sharedworkspacebackend.onrender.com";
     }
     
     const url = backendEndpoint + "/api" + path;
