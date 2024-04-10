@@ -19,7 +19,7 @@ const showPage = (page) => {
 }
 
 function addUser(username, email, role, password, confirmPassword, phone) {
-    let respponseMessage, result=false;
+    let respponseMessage, result = false;
     //Validate the user input. this also required in the backend validation
     if (username.length < 3) {
         respponseMessage = "Username must be at least 3 characters long";
@@ -29,27 +29,27 @@ function addUser(username, email, role, password, confirmPassword, phone) {
         respponseMessage = "Password must be at least 6 characters long";
     } else if (password !== confirmPassword) {
         respponseMessage = "Passwords do not match";
-    }else{
+    } else {
         //form the data.
         let user = {
             name: username,
             email: email,
-            phone: phone, 
+            phone: phone,
             password: password,
             role: role
         };
-        if(callBackendApi("/users/signup", "POST", user)){
+        if (callBackendApi("/users/signup", "POST", user)) {
             respponseMessage = "User added successfully";
             result = true;
-        }else{
+        } else {
             respponseMessage = "Error in adding the user";
         }
     }
 
-    return {"result": result, "message": respponseMessage};
+    return { "result": result, "message": respponseMessage };
 }
 
-function addProperty(name, description, photos, streetAddr, city, state, zip, country, parkingAvailable, publicTransport){
+function addProperty(name, description, photos, streetAddr, city, state, zip, country, parkingAvailable, publicTransport) {
     //define response format
     let response = {
         result: false,
@@ -63,32 +63,32 @@ function addProperty(name, description, photos, streetAddr, city, state, zip, co
     } else if (description.length < 6) {
         response.message = "Description must be at least 6 characters long";
         return response;
-    }else if (!streetAddr.length) {
+    } else if (!streetAddr.length) {
         response.message = "Street Address is required";
         return response;
-    }else if (!city.length) {
+    } else if (!city.length) {
         response.message = "City is required";
         return response;
-    }else if (!state.length) {
+    } else if (!state.length) {
         response.message = "State is required";
         return response;
-    }else if (!zip.length) {
+    } else if (!zip.length) {
         response.message = "Zip is required";
         return response;
-    }else if (!country.length) {
+    } else if (!country.length) {
         response.message = "Country is required";
         return response;
-    }else if (!parkingAvailable.length) {
+    } else if (!parkingAvailable.length) {
         response.message = "Parking Available is required";
         return response;
-    }else if(!publicTransport.length){
+    } else if (!publicTransport.length) {
         response.message = "Public Transport is required";
         return response;
     }
 
     //Get the user from the session
     let user = JSON.parse(sessionStorage.getItem("user"));
-    if(user === null){
+    if (user === null) {
         response.message = "User not logged in";
         return response;
     }
@@ -109,29 +109,29 @@ function addProperty(name, description, photos, streetAddr, city, state, zip, co
     };
 
     const res = callBackendApi("/properties", "POST", property);
-    if(res){
+    if (res) {
         response.result = true;
         response.message = "Property added successfully";
-    }else{
+    } else {
         response.message = "Error in adding the property";
     }
     return response;
 }
 
-function getProperties(id, search){
-    
+function getProperties(id, search) {
+
     //add search to the query string
-    if(id){
+    if (id) {
         return callBackendApi("/properties?id=" + id, "GET", {});
     }
-    if(search){
+    if (search) {
         return callBackendApi("/properties?search=" + search, "GET", {});
-    }else{
+    } else {
         return callBackendApi("/properties", "GET", {});
     }
 }
 
-function addWorkspace(name, description, photos, size, price, propertyId, leaseTerm, availableDate, seat, allowsSmoking, type){
+function addWorkspace(name, description, photos, size, price, propertyId, leaseTerm, availableDate, seat, allowsSmoking, type) {
     //define response format
     let response = {
         result: false,
@@ -145,17 +145,17 @@ function addWorkspace(name, description, photos, size, price, propertyId, leaseT
     } else if (description.length < 6) {
         response.message = "Description must be at least 6 characters long";
         return response;
-    }else if (!size.length) {
+    } else if (!size.length) {
         response.message = "Size is required";
         return response;
-    }else if (!price.length) {
+    } else if (!price.length) {
         response.message = "Price is required";
         return response;
     }
-       
+
     //Get the user from the session
     let user = JSON.parse(sessionStorage.getItem("user"));
-    if(user === null){
+    if (user === null) {
         response.message = "User not logged in";
         return response;
     }
@@ -175,22 +175,22 @@ function addWorkspace(name, description, photos, size, price, propertyId, leaseT
         size: size
     };
 
-    const res = callBackendApi("/properties/"+propertyId+"/workspaces", "POST", workspace);
-    if(res){
+    const res = callBackendApi("/properties/" + propertyId + "/workspaces", "POST", workspace);
+    if (res) {
         response.result = true;
         response.message = "Workspace added successfully";
-    }else{
+    } else {
         response.message = "Error in adding the workspace";
     }
     return response;
 
 }
 
-function getWorkspaces(propertyId, id){
-    if(!propertyId){
+function getWorkspaces(propertyId, id) {
+    if (!propertyId) {
         return callBackendApi("/workspaces/search", "GET", {});
     }
-    if(id){
+    if (id) {
         return callBackendApi("/properties/" + propertyId + "/workspaces/" + id, "GET", {});
     }
     return callBackendApi("/properties/" + propertyId + "/workspaces", "GET", {});
@@ -198,9 +198,9 @@ function getWorkspaces(propertyId, id){
 
 function loginUser(email, password) {
     //call the backend API to validate the user
-    const response = callBackendApi("/users/login", "POST", {email: email, password: password});
+    const response = callBackendApi("/users/login", "POST", { email: email, password: password });
     const token = response.token;
-    if(token){
+    if (token) {
         //Get the payload from the token
         const payload = JSON.parse(atob(token.split('.')[1]));
 
@@ -217,19 +217,19 @@ function loginUser(email, password) {
         //save the token in the session storage
         sessionStorage.setItem("token", token);
 
-        return {"result": true, "message":"Login Success"}
-    }else{
-        return {"result": false, "message":"Login Failure"};
+        return { "result": true, "message": "Login Success" }
+    } else {
+        return { "result": false, "message": "Login Failure" };
     }
 
 }
 
-function getGUID(){
+function getGUID() {
     const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
-function bookWorkspace(wid, date, time, duration){
+function bookWorkspace(wid, date, time, duration) {
     //define response format
     let response = {
         result: false,
@@ -240,17 +240,17 @@ function bookWorkspace(wid, date, time, duration){
     if (!date.length) {
         response.message = "Date is required";
         return response;
-    }else if (!time.length) {
+    } else if (!time.length) {
         response.message = "Time is required";
         return response;
-    }else if (!duration.length) {
+    } else if (!duration.length) {
         response.message = "Duration is required";
         return response;
     }
-       
+
     //Get the user from the session
     let user = JSON.parse(sessionStorage.getItem("user"));
-    if(user === null){
+    if (user === null) {
         response.message = "User not logged in";
         return response;
     }
@@ -265,17 +265,17 @@ function bookWorkspace(wid, date, time, duration){
         user: user.username
     };
 
-    if(addObjecttoLocalStorage(booking, "bookings")){
+    if (addObjecttoLocalStorage(booking, "bookings")) {
         response.result = true;
         response.message = "Workspace booked successfully";
-    }else{
+    } else {
         response.message = "Error in booking the workspace";
     }
     return response;
     //Implement the code to save the booking in the database in Phase 2
 }
 
-function rateBooking(wid, rating, comment){
+function rateBooking(wid, rating, comment) {
     //define response format
     let response = {
         result: false,
@@ -287,10 +287,10 @@ function rateBooking(wid, rating, comment){
         response.message = "Rating is required";
         return response;
     }
-       
+
     //Get the user from the session
     let user = JSON.parse(sessionStorage.getItem("user"));
-    if(user === null){
+    if (user === null) {
         response.message = "User not logged in";
         return response;
     }
@@ -303,29 +303,29 @@ function rateBooking(wid, rating, comment){
         user: user.username
     };
 
-    if(addObjecttoLocalStorage(booking, "ratings")){
+    if (addObjecttoLocalStorage(booking, "ratings")) {
         response.result = true;
         response.message = "Rating added successfully";
-    }else{
+    } else {
         response.message = "Error in adding the rating";
     }
     return response;
     //Implement the code to save the rating in the database in Phase 2
 }
 
-function getRating(wid){
-    let ratings = getObjectFromLocalStorage("ratings", {wid: wid});
+function getRating(wid) {
+    let ratings = getObjectFromLocalStorage("ratings", { wid: wid });
     //Calculate the average rating
     let total = 0;
     ratings.forEach(function (item, index) {
         total += parseInt(item.rating);
     });
-    let avgRating = total/ratings.length;
+    let avgRating = total / ratings.length;
     return avgRating;
 }
 
 function addObjecttoLocalStorage(object, storageKey) {
-    try{
+    try {
         //save the user to the local storage
         var data = JSON.parse(localStorage.getItem(storageKey));
         if (data === null) {
@@ -334,7 +334,7 @@ function addObjecttoLocalStorage(object, storageKey) {
         data.push(object);
         localStorage.setItem(storageKey, JSON.stringify(data));
         return true;
-    }catch(e){
+    } catch (e) {
         return false;
     }
 }
@@ -345,7 +345,7 @@ function getObjectFromLocalStorage(storageKey, objectKeysJson) {
         return [];
     }
     //Find the objects that has all the keys and values in the objectKeysJson
-    
+
     var resultset = [];
     data.forEach(function (item, index) {
         var found = true;
@@ -364,13 +364,22 @@ function getObjectFromLocalStorage(storageKey, objectKeysJson) {
     return resultset;
 }
 
-function callBackendApi(path, method, data){
+function callBackendApi(path, method, data) {
     console.log("Calling the backend API");
     console.log("Path: " + path);
     console.log("Method: " + method);
     console.log("Data: " + JSON.stringify(data));
 
-    const url = "http://localhost:3000/api" + path;
+    //get url from browser
+    const browserUrl = window.location.href;
+    let backendEndpoint;
+    if (browserUrl.includes("localhost")) {
+        backendEndpoint = "http://localhost:3000";
+    } else {
+        backendEndpoint = "https://sharedworkspacebackend.onrender.com/";
+    }
+    
+    const url = backendEndpoint + "/api" + path;
     const Http = new XMLHttpRequest();
     Http.open(method, url, false);
     Http.setRequestHeader("Content-Type", "application/json");
@@ -382,13 +391,13 @@ function callBackendApi(path, method, data){
     console.log("HttpResponseType: " + typeof Http.response);
 
     //if status is 2xx then return the response
-    if(Http.status.toString().startsWith("2")){
+    if (Http.status.toString().startsWith("2")) {
         return JSON.parse(Http.response);
     }
     return null;
 }
 
-function modelAlert(message, redirectPage){
+function modelAlert(message, redirectPage) {
     //create the alert element and it should have a close button to remove the alert. A listenser for ESC key to remove the alert.
     let alert = document.createElement("div");
     alert.className = "alert";
@@ -444,24 +453,24 @@ function modelAlert(message, redirectPage){
     parent.document.body.appendChild(alert);
 
     //close the alert when the close button is clicked
-    alert.querySelector(".close").addEventListener("click", function(){
+    alert.querySelector(".close").addEventListener("click", function () {
         alert.remove();
         background.remove();
 
-        if(redirectPage){
+        if (redirectPage) {
             showPage(redirectPage);
         }
     });
 
     //close the alert when the ESC key is pressed
-    document.addEventListener("keydown", function(event){
-        if(event.key === "Escape"){
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
             alert.remove();
             background.remove();
-            if(redirectPage){
+            if (redirectPage) {
                 showPage(redirectPage);
             }
         }
     });
-    
+
 }
