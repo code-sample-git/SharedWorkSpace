@@ -138,9 +138,9 @@ body, html {
                 img.onload = function () {
                     let canvas = document.createElement('canvas');
                     let ctx = canvas.getContext('2d');
-                    canvas.width = 100;
-                    canvas.height = 100;
-                    ctx.drawImage(img, 0, 0, 100, 100);
+                    canvas.width = 500;
+                    canvas.height = 500;
+                    ctx.drawImage(img, 0, 0, 500, 500);
                     let dataurl = canvas.toDataURL('image/png');
 
                     // Add the data URL to the photos array
