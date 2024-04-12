@@ -1,15 +1,30 @@
 <style>
     body, html {
         background-image: none !important;
-        max-width: 400px;
+        max-width: 100%;
         max-height: 100px;
         border-radius: 8px;
         font-family: Arial, sans-serif;
         color: black;
         background-color: transparent !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+  
+        
+
+
 
     }
 
+.login-form {
+    max-width: 400px;
+    max-height: 100px;
+    border-radius: 8px;
+    width: 100%; /* Add this if the form is not taking up the full width of the .login-form div */
+    align-items: center;
+
+}
 
 .login-form h2 {
     text-align: center;
@@ -19,7 +34,7 @@
 
 .login-form input[type="text"],
 .login-form input[type="password"] {
-    width: 100%;
+    width: 400px;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;

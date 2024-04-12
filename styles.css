@@ -6,6 +6,7 @@ body, html {
     background-size: cover; /* Cover the entire content area */
     background-position: center; /* Center the background image */
     background-attachment: fixed;
+
 }
 
 
@@ -29,7 +30,7 @@ header {
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.5s ease; /* Smooth transition for background color */
-    z-index: 1000; /* Ensure header is above other content */
+    z-index: 1; /* Ensure header is above other content */
     text-align: center; /* This will center all text within the header */
 
 } 
@@ -77,17 +78,14 @@ h1 {
 .sidebar {
     position: relative;
     top: 100px + 1%; /* Adjusted to clear the header */
-    width: 250px;
-    height: calc(800px - 50px); /* Adjusted height to clear the header */
-    padding-top: 20px;
+    width: 100%;
+    height: 40px; /* Adjusted height to clear the header */
+    align-items: center; /* Align items vertically in the center */
+    justify-content: center; /* Align items horizontally in the center */
     transition: background-color 0.5s ease; /* Smooth transition for background color */
-    z-index: 1000; /* Ensure sidebar is above other content */
+    z-index: 1; /* Ensure sidebar is above other content */
 
     
-}
-
-.sidebar:hover {
-    background-color: rgba(242, 227, 23, 0.5); /* Darker shade on hover */
 }
 
 
@@ -95,20 +93,28 @@ h1 {
 
 .nav-menu ul {
     list-style-type: none;
-    padding: 0.5em;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
+.nav-menu ul li {
+    margin-right: 20px; /* Add space to the right of each list item */
+}
 
 .nav-menu ul li button {
+    font-size: 20px;
     display: block;
-    width: 100%;
-    padding: 15px;
     cursor: pointer;
-    text-align: left;
+    text-align: center;
     border: none;
     background: none;
     color: black;
     transition: transform 0.3s ease, font-weight 0.3s ease; /* Smooth transition for transform and font-weight */
+   
 }
 
 .nav-menu ul li button:hover, .nav-menu ul li button:focus {
@@ -118,16 +124,12 @@ h1 {
 
 
 .content {
-    margin-left: 15%; /* Sidebar width */
-    margin-top: 0px; /* Header height */
-    padding: 20px;
-    width: calc(100% - 200px); /* Sidebar width */
-    height: auto;
-    position: relative;
-
-    
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100vh !important;
+    width: 100% !important;
 }
-
 
 
 /* Ensure buttons and links have a consistent style */
@@ -146,12 +148,12 @@ button:hover {
 }
 
 .container {
-    max-width: 1200px;
-    padding: 20px;
-    display: flex; /* Enables Flexbox layout */
-    align-items: start; /* Aligns items to the start of the flex container */
+
+    position: relative;
+    align-items: center; /* Aligns items to the start of the flex container */
     box-sizing: border-box;
     width: 100%;
+    z-index: 1; /* Ensure container is above other content */
 
 }
 
@@ -171,6 +173,7 @@ button:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    
 }
 
 .item {
