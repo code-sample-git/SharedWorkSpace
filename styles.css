@@ -20,7 +20,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.3); /* White with transparency */
+    background: rgba(255, 255, 255, 0.2); /* White with transparency */
     z-index: 0; /* Ensure this is behind the content */
 }
 
