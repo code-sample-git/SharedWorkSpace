@@ -43,7 +43,8 @@
         if (sessionStorage.getItem("user")) {
             document.querySelector(".auth-buttons").style.display = "none";
             const username = JSON.parse(sessionStorage.getItem("user")).username;
-            document.getElementById("username").innerText = username;
+            const role = JSON.parse(sessionStorage.getItem("user")).role;
+            document.getElementById("username").innerText = username + " (" + role + ")";
             //show the user info
             document.querySelector(".user-info").style.display = "block";
         }else{
