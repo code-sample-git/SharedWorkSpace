@@ -309,7 +309,7 @@ function deleteProperty(id) {
         //Implement the code to save the booking in the database in Phase 2
     }
 
-    function rateBooking(wid, rating, comment) {
+    function rateBooking(propertyId, wid, rating, comment) {
         //define response format
         let response = {
             result: false,
@@ -331,20 +331,18 @@ function deleteProperty(id) {
 
         //form the data.
         let booking = {
-            wid: wid,
             rating: rating,
-            comment: comment,
-            user: user.username
+            comment: comment
         };
 
-        if (addObjecttoLocalStorage(booking, "ratings")) {
+        const res = callBackendApi("/properties/"+ propertyId + "/workspaces/" + wid + "/ratings", "POST", booking);
+        if (res) {
             response.result = true;
-            response.message = "Rating added successfully";
+            response.message = "Workspace rated successfully";
         } else {
-            response.message = "Error in adding the rating";
+            response.message = "Error in rating the workspace";
         }
         return response;
-        //Implement the code to save the rating in the database in Phase 2
     }
 
     function getRating(wid) {
@@ -408,8 +406,8 @@ function deleteProperty(id) {
         const browserUrl = window.location.href;
         let backendEndpoint;
         if (browserUrl.includes("localhost") || browserUrl.includes("127.0.0.1")) {
-            //backendEndpoint = "http://localhost:3000";
-            backendEndpoint = "https://sharedworkspacebackend.onrender.com";
+            backendEndpoint = "http://localhost:3000";
+            //backendEndpoint = "https://sharedworkspacebackend.onrender.com";
         } else {
             backendEndpoint = "https://sharedworkspacebackend.onrender.com";
         }

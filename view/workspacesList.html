@@ -99,12 +99,21 @@ body, html {
 
     const workspacesDiv = document.getElementById("workspaces");
     workspaces.forEach(workspace => {
+        //calculate the average rating
+        let totalRating = 0;
+        workspace.ratings.forEach(rating => {
+            totalRating += rating.rating;
+        });
+        const averageRating = totalRating / workspace.ratings.length;
+        
+        //Display the workspace
         const workspaceDiv = document.createElement("div");
         workspaceDiv.className = 'workspace';
         workspaceDiv.innerHTML = `
             <h2>${workspace.name}</h2>
-            <p>${workspace.description}</p>
-            <p>${workspace.price}</p>
+            <p>Description: ${workspace.description}</p>
+            <p>Price: ${workspace.price}</p>
+            <p>Average Rating: ${averageRating}</p>
             <img src="${workspace.photos[0]}" alt="${workspace.name}">
             <button onclick="location.href='workspaceView.html?propertyId=${workspace.property?._id}&id=${workspace._id}'">View</button>
         `;

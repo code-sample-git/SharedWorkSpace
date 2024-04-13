@@ -104,6 +104,7 @@ body {
         <button id="editBtn" onclick="location.href='workspaceForm.html?id=${workspace._id}'">Edit</button>
         <button id="deleteBtn" onclick="location.href='workspaceForm.html?id=${workspace._id}'">Delete</button>
         <button onclick="location.href='bookForm.html?wid=${workspace._id}'">Book this Workspaces</button>
+        <button onclick="location.href='ratingForm.html?wid=${workspace._id}&propertyId=${workspace.property}'">Rate this Workspaces</button>
     `;
 
     const user = JSON.parse(sessionStorage.getItem("user"));
