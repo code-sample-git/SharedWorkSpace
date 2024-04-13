@@ -96,8 +96,8 @@ body, html {
         <p>${property.zip}</p>
         <p>${property.country}</p>
         <img src="${property.photos[0]}" alt="${property.name}">
-        <button onclick="location.href='propertyForm.html?id=${property._id}'">Edit</button>
-        <button onclick="location.href='propertyForm.html?id=${property._id}'">Delete</button>
-        <button onclick="location.href='workspaceForm.html?id=${property._id}'">Add workspace to this property</button>
+        <button onclick="location.href='propertyForm.html?id=${property._id}&action=edit'">Edit</button>
+        <button onclick="location.href='propertyForm.html?id=${property._id}&action=delete'">Delete</button>
+        <button onclick="location.href='workspaceForm.html?id=${property._id}&action=add'">Add workspace to this property</button>
     `;
 </script>

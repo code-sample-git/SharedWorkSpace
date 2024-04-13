@@ -1,74 +1,80 @@
 <style>
-/* Reset some basic elements */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif; /* You can choose another font */
-    background-image: none !important;
-    background-color: transparent !important;
-}
+    /* Reset some basic elements */
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        /* You can choose another font */
+        background-image: none !important;
+        background-color: transparent !important;
+    }
 
-/* Style the form */
-.property-form {
-    max-width: 600px;
-    margin: 0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
+    /* Style the form */
+    .property-form {
+        max-width: 600px;
+        margin: 0;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
 
-.property-form h2 {
-    text-align: center;
-    color: #333;
-}
+    .property-form h2 {
+        text-align: center;
+        color: #333;
+    }
 
-/* Style inputs and textarea */
-.property-form input[type="text"],
-.property-form input[type="file"],
-.property-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* Ensures padding does not affect overall width */
-}
+    /* Style inputs and textarea */
+    .property-form input[type="text"],
+    .property-form input[type="file"],
+    .property-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        /* Ensures padding does not affect overall width */
+    }
 
-.property-form textarea {
-    height: 100px; /* Gives more room for the description */
-}
+    .property-form textarea {
+        height: 100px;
+        /* Gives more room for the description */
+    }
 
-/* Style the submit button */
-.property-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff; /* Bootstrap primary color */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
+    /* Style the submit button */
+    .property-form button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        /* Bootstrap primary color */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
 
-.property-form button:hover {
-    background-color: #0056b3; /* A slightly darker blue */
-}
+    .property-form button:hover {
+        background-color: #0056b3;
+        /* A slightly darker blue */
+    }
 
-/* Adjusts the file input styling */
-.property-form input[type="file"] {
-    padding: 10px;
-    background: #f8f8f8;
-    border: 1px dashed #ccc;
-}
+    /* Adjusts the file input styling */
+    .property-form input[type="file"] {
+        padding: 10px;
+        background: #f8f8f8;
+        border: 1px dashed #ccc;
+    }
 
-.property-form select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    display: block;
-}
+    .property-form select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        display: block;
+    }
 </style>
 
 
@@ -94,10 +100,52 @@ body, html {
 </form>
 <script src="../model.js"></script>
 <script>
+    //get the action parameter from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const action = urlParams.get('action');
+
+    //if the action is delete, then call the deleteProperty function
+    if (action === "delete") {
+        //Get the property id from the URL
+        const id = urlParams.get('id');
+        //Delete the property by id
+        deleteProperty(id);
+        //tell user the property is deleted
+        modelAlert("Property deleted successfully", "propertiesList");
+    }
+    ///if the action is edit, then load the property detail
+    if (action === "edit") {
+        //Get the property id from the URL
+        const id = urlParams.get('id');
+        //Load the properties from Local Storage
+        let property = getProperties(id);
+        //Get the property name by id
+        document.getElementById("propertyName").value = property.name;
+        //Get the property description by id
+        document.getElementById("propertyDes").value = property.description;
+        //Get the street address by id
+        document.getElementById("streetAddr").value = property.streetAddr;
+        //Get the city by id
+        document.getElementById("city").value = property.city;
+        //Get the state by id
+        document.getElementById("state").value = property.state;
+        //Get the zip by id
+        document.getElementById("zip").value = property.zip;
+        //Get the country by id
+        document.getElementById("country").value = property.country;
+        //Get the parking available by id
+        document.getElementById("parkingAvailable").value = property.parkingAvailable;
+        //Get the public transport by id
+        document.getElementById("PublicTransport").value = property.publicTransport;
+
+        //Update the form button text
+        document.querySelector(".property-form button").innerText = "Update";
+    }
+
+
     //When the add button is pressed Validate the form
     document.querySelector(".property-form button").addEventListener("click", function (event) {
         event.preventDefault();
-        console.log("Add button pressed");
         //Get the property name by id
         let name = document.getElementById("propertyName").value;
         //Get the property description by id
@@ -122,7 +170,7 @@ body, html {
         // Get the selected files
         let files = input.files;
 
-        if(files.length === 0){
+        if (files.length === 0) {
             modelAlert("Please select at least one image");
             return;
         }
@@ -149,9 +197,17 @@ body, html {
                     // Call addProperty when all files are processed
                     if (photos.length === files.length) {
                         const res = addProperty(name, description, photos, streetAddr, city, state, zip, country, parkingAvailable, publicTransport);
-                        if(res.result){
-                            modelAlert("Property added successfully", "propertiesList");
-                        }else{
+                        if (res.result) {
+                            if (action === "edit") {
+                                //Get the property id from the URL
+                                const id = urlParams.get('id');
+                                //Delete the property by id
+                                deleteProperty(id);
+                                modelAlert("Property edited successfully", "propertiesList");
+                            } else {
+                                modelAlert("Property added successfully", "propertiesList");
+                            }
+                        } else {
                             modelAlert(res.message);
                         }
                     }
