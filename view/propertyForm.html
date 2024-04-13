@@ -6,12 +6,13 @@ body, html {
     font-family: Arial, sans-serif; /* You can choose another font */
     background-image: none !important;
     background-color: transparent !important;
+    height: 100vh; /* This makes sure the body takes up the full viewport height */
 }
 
 /* Style the form */
 .property-form {
     max-width: 600px;
-    margin: 0;
+    margin: auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
@@ -19,6 +20,7 @@ body, html {
 .property-form h2 {
     text-align: center;
     color: #333;
+    margin-top: 20px;
 }
 
 /* Style inputs and textarea */
@@ -69,6 +71,11 @@ body, html {
     box-sizing: border-box;
     display: block;
 }
+
+body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollbar {
+    display: none;
+}
+
 </style>
 
 

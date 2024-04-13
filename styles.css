@@ -127,6 +127,7 @@ h1 {
     justify-content: center !important;
     align-items: center !important;
     width: 100% !important;
+    height: 100% !important;
 
 }
 
@@ -153,6 +154,7 @@ button:hover {
     box-sizing: border-box;
     width: 100%;
     z-index: 1; /* Ensure container is above other content */
+    
 
 }
 

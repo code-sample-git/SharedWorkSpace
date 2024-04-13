@@ -9,13 +9,14 @@ body, html {
     background-color: transparent !important;
     display: flex;
     justify-content: center;
-    align-items: center; 
+
 }
     /* Container Styling */
 .container {
     max-width: 800px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     border-radius: 8px;
+    margin-top: 0px;
 }
 
 /* Header Styling */
@@ -34,12 +35,12 @@ body, html {
 #property p {
     font-size: 16px;
     color: black; /* Dark gray color for text for better readability */
-    margin: 5px 0; /* Adds a little space between paragraphs */
+    margin: 20px 0; /* Adds a little space between paragraphs */
 }
 
 #property img {
-    width: 100%; /* Ensures the image is responsive and fits within the container */
-    height: auto;
+    width: 300px; /* Ensures the image is responsive and fits within the container */
+    height: 300px;
     border-radius: 4px; /* Adds slight rounding to the corners of the image */
     margin-top: 15px; /* Adds space between the image and the last paragraph */
 }
@@ -70,11 +71,20 @@ body, html {
     background-color: #218838; /* A darker green on hover */
 }
 
+body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollbar {
+    display: none;
+}
+
+.transparent-box {
+    background-color: rgba(255, 255, 255, 0.5); /* White background with 50% opacity */
+    border: 1px solid #ccc; /* Optional: Add a border */
+    padding: 10px; /* Add some padding so the content isn't up against the edge */
+}
+
 </style>
 
 
 <div class="container">
-    <h1>Property</h1>
     <div id="property"></div>
 </div>
 <script src="../model.js"></script>
@@ -89,15 +99,15 @@ body, html {
     const propertyDiv = document.getElementById("property");
     propertyDiv.innerHTML = `
         <h2>${property.name}</h2>
+        <div class="transparent-box">
         <p>${property.description}</p>
-        <p>${property.streetAddr}</p>
-        <p>${property.city}</p>
-        <p>${property.state}</p>
-        <p>${property.zip}</p>
-        <p>${property.country}</p>
+        <p>${property.streetAddr},${property.streetAddr}, ${property.city}, ${property.state}, ${property.zip}, ${property.country}</p>
         <img src="${property.photos[0]}" alt="${property.name}">
+        <div id="property">
         <button onclick="location.href='propertyForm.html?id=${property._id}'">Edit</button>
         <button onclick="location.href='propertyForm.html?id=${property._id}'">Delete</button>
         <button onclick="location.href='workspaceForm.html?id=${property._id}'">Add workspace to this property</button>
+        </div>
+        </div>
     `;
 </script>
