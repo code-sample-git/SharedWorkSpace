@@ -101,8 +101,18 @@ body {
         <img src="${workspace.photos[0]}" alt="${workspace.name}">
         <!--rating-->
         <p>Rating: ${getRating(workspace.id)}</p>
-        <button onclick="location.href='workspaceForm.html?id=${workspace._id}'">Edit</button>
-        <button onclick="location.href='workspaceForm.html?id=${workspace._id}'">Delete</button>
+        <button id="editBtn" onclick="location.href='workspaceForm.html?id=${workspace._id}'">Edit</button>
+        <button id="deleteBtn" onclick="location.href='workspaceForm.html?id=${workspace._id}'">Delete</button>
         <button onclick="location.href='bookForm.html?wid=${workspace._id}'">Book this Workspaces</button>
     `;
+
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const role = user?.role;
+    if (role === "owner") {
+        document.getElementById("editBtn").style.display = "block";
+        document.getElementById("deleteBtn").style.display = "block";
+    } else {
+        document.getElementById("editBtn").style.display = "none";
+        document.getElementById("deleteBtn").style.display = "none";
+    }
 </script>

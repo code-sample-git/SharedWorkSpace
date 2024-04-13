@@ -79,6 +79,7 @@ body, html {
 </div>
 <script src="../model.js"></script>
 <script>
+
     //Get the property id from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
@@ -96,8 +97,21 @@ body, html {
         <p>${property.zip}</p>
         <p>${property.country}</p>
         <img src="${property.photos[0]}" alt="${property.name}">
-        <button onclick="location.href='propertyForm.html?id=${property._id}&action=edit'">Edit</button>
-        <button onclick="location.href='propertyForm.html?id=${property._id}&action=delete'">Delete</button>
-        <button onclick="location.href='workspaceForm.html?id=${property._id}&action=add'">Add workspace to this property</button>
+        <button id="editBtn" onclick="location.href='propertyForm.html?id=${property._id}&action=edit'">Edit</button>
+        <button id="deleteBtn" onclick="location.href='propertyForm.html?id=${property._id}&action=delete'">Delete</button>
+        <button id="addBtn" onclick="location.href='workspaceForm.html?id=${property._id}&action=add'">Add workspace to this property</button>
+        <button id="viewWorkspacce" onclick="location.href='workspacesList.html?propertyId=${property._id}'">View workspace to this property</button>
     `;
+
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const role = user?.role;
+    if (role === "owner") {
+        document.getElementById("editBtn").style.display = "block";
+        document.getElementById("deleteBtn").style.display = "block";
+        document.getElementById("addBtn").style.display = "block";
+    } else {
+        document.getElementById("editBtn").style.display = "none";
+        document.getElementById("deleteBtn").style.display = "none";
+        document.getElementById("addBtn").style.display = "none";
+    }
 </script>
