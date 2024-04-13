@@ -1,163 +1,176 @@
 <style>
-/* Container styling */
-body, html {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollbar {
-    display: none;
-}
-.main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    /* Container styling */
+    body,
+    html {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-}
+    body::-webkit-scrollbar,
+    html::-webkit-scrollbar,
+    .main-content::-webkit-scrollbar {
+        display: none;
+    }
 
-.search-bar {
-    text-align: center;
-    width: 1000px;
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
 
-}
+    }
 
-.controls-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    
-}
-.container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    text-align: center;
-    width: 1000px;
-    margin: 20px auto; /* Adjust the first value to move the container down, the second value centers the container */
-}
-.controls {
-    margin-right: 20px; /* Add some space between the controls and the items */
-}
+    .search-bar {
+        text-align: center;
+        width: 1000px;
 
-/* Button styling */
-button {
-    background-color: #007bff;
-    color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 120px;
-    font-size: 16px;
-    margin: 10px 5px; /* Spacing around buttons */
-    transition: background-color 0.3s ease;
-}
+    }
 
-button:hover {
-    background-color: #0056b3;
-}
+    .controls-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
 
-/* Controls div styling for additional control buttons */
-.controls {
-    text-align: center; /* Centers the control buttons */
-}
+    }
 
-/* Items and property item styling */
-#items {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px; /* Adjust this value to add space between the items */
-}
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        text-align: center;
+        width: 1000px;
+        margin: 20px auto;
+        /* Adjust the first value to move the container down, the second value centers the container */
+    }
 
-.item {
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-}
+    .controls {
+        margin-right: 20px;
+        /* Add some space between the controls and the items */
+    }
 
-.item:hover {
-    transform: translateY(-5px); /* Adds a slight lift effect on hover */
-}
+    /* Button styling */
+    button {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 120px;
+        font-size: 16px;
+        margin: 10px 5px;
+        /* Spacing around buttons */
+        transition: background-color 0.3s ease;
+    }
 
-.item h2 {
-    font-size: 20px;
-    margin: 10px;
-}
+    button:hover {
+        background-color: #0056b3;
+    }
 
-.item img {
-    width: 100%; /* Makes image fill the container */
-    height: auto;
-    display: block;
-}
+    /* Controls div styling for additional control buttons */
+    .controls {
+        text-align: center;
+        /* Centers the control buttons */
+    }
 
-.item p {
-    margin: 0 10px 10px;
-    color: black;
-}
+    /* Items and property item styling */
+    #items {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        /* Adjust this value to add space between the items */
+    }
 
-.item button {
-    display: block;
-    width: calc(100% - 20px); /* Full width minus margin for visual consistency */
-    margin: 10px;
-    box-sizing: border-box;
-}
+    .item {
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
 
-.input {
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    display: block;
-}
+    .item:hover {
+        transform: translateY(-5px);
+        /* Adds a slight lift effect on hover */
+    }
 
-input[type="text"] {
-    width: 70%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-}
+    .item h2 {
+        font-size: 20px;
+        margin: 10px;
+    }
 
+    .item img {
+        width: 100%;
+        /* Makes image fill the container */
+        height: auto;
+        display: block;
+    }
 
+    .item p {
+        margin: 0 10px 10px;
+        color: black;
+    }
+
+    .item button {
+        display: block;
+        width: calc(100% - 20px);
+        /* Full width minus margin for visual consistency */
+        margin: 10px;
+        box-sizing: border-box;
+    }
+
+    .input {
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        display: block;
+    }
+
+    input[type="text"] {
+        width: 70%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
 </style>
 <div class="main-content">
-<div class="search-bar">
-    <!--Searching-->
-    <input type="text" id="search" placeholder="Search for properties">
-    <button onclick="search()">Search</button>
-    <button onclick="displayProperties(properties)">Reset</button>
-</div>
-<div class="container">
-    <div class="controls-container">
-    <div class="controls">
-        <button id="addNewProperty" onclick="showPage('propertyForm')">Add New Property</button>
-        <button id="myOwnProperties">My Own Properties</button>
+    <div class="search-bar">
+        <!--Searching-->
+        <input type="text" id="search" placeholder="Search for properties">
+        <button onclick="search()">Search</button>
+        <button onclick="displayProperties(properties)">Reset</button>
     </div>
-    <!-- Display the Properties here -->
-    <div id="items"></div>
-</div>
-</div>
+    <div class="container">
+        <div class="controls-container">
+            <div class="controls">
+                <button id="addNewProperty" onclick="showPage('propertyForm')">Add New Property</button>
+                <button id="myOwnProperties" onclick="displayMyOwnPage()">My Own Properties</button>
+            </div>
+            <!-- Display the Properties here -->
+            <div id="items"></div>
+        </div>
+    </div>
 </div>
 
 <script src="../model.js"></script>
 <script>
     //if the user is logged in, hide the register and login buttons
-    if (sessionStorage.getItem("user")) {
-        //Show the myOwnProperties button
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const role = user?.role;
+    if (role === "owner") {
         document.getElementById("myOwnProperties").style.display = "block";
-        //Show the Add New Property button
         document.getElementById("addNewProperty").style.display = "block";
     } else {
         document.getElementById("myOwnProperties").style.display = "none";
@@ -166,14 +179,14 @@ input[type="text"] {
 
     //Load the properties from Local Storage
     let properties = getProperties() || [];
-    
+
     //Display the properties
     displayProperties(properties);
     function displayProperties(properties) {
         const items = document.getElementById("items");
         items.innerHTML = "";
         console.log("type: " + typeof properties);
-        
+
         properties.forEach(property => {
             const item = document.createElement("div");
             item.className = 'item';
@@ -186,5 +199,19 @@ input[type="text"] {
             `;
             items.appendChild(item);
         });
+    }
+
+    function displayMyOwnPage() {
+        //Get the user id from the session storage
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        //Filter the properties by the user id
+        const myProperties = properties.filter(property => property.owner === user.id);
+        //Display the properties
+        displayProperties(myProperties);
+    }
+    function search() {
+        const search = document.getElementById("search").value;
+        const filteredProperties = properties.filter(property => property.name.toLowerCase().includes(search.toLowerCase()));
+        displayProperties(filteredProperties);
     }
 </script>

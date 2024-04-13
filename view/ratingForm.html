@@ -82,14 +82,17 @@ button[type="submit"]:hover {
         let comment = document.getElementById("comment").value;
         //Get the booking id from the URL
         const urlParams = new URLSearchParams(window.location.search);
-        const wid = urlParams.get('id');
+        const wid = urlParams.get('wid');
+
+        //Get the property id from the URL
+        const propertyId = urlParams.get('propertyId');
+
         //Call the rateBooking function
-        const res = rateBooking(wid, rating, comment);
+        const res = rateBooking(propertyId, wid, rating, comment);
         if(res.result){
-            alert(res.message);
-            location.href = "myBookingsList.html";
-        }else{
-            alert(res.message);
+            modelAlert(res.message, "propertiesList");
+        } else {
+            modelAlert(res.message);
         }
     });
 </script>

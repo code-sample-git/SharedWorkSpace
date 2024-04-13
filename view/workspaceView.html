@@ -18,6 +18,25 @@ body, html {
     border-radius: 8px;
     margin-top: 0px;
 }
+    /* Basic Reset */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        overflow: hidden;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
 /* Header Styling */
 .container h1 {
@@ -25,18 +44,43 @@ body, html {
     text-align: center;
     margin-bottom: 20px;
 }
+    .container h1,
+    .container h2 {
+        text-align: center;
+        color: black;
+    }
+
+    .container h1 {
+        margin-bottom: 30px;
+    }
 
 /* Property Details Styling */
 #workspace h2 {
     color: black; /* Adds a highlight color to the property name */
     margin-bottom: 15px;
 }
+    #workspace {
+        padding: 20px;
+        ;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    #workspace h2 {
+        margin-bottom: 15px;
+        color: black;
+    }
 
 #workspace p {
     font-size: 16px;
     color: black; /* Dark gray color for text for better readability */
     margin: 20px 0; /* Adds a little space between paragraphs */
 }
+    #workspace p {
+        font-size: 16px;
+        margin-bottom: 10px;
+        color: black;
+    }
 
 #workspace img {
     width: 300px; /* Ensures the image is responsive and fits within the container */
@@ -44,6 +88,13 @@ body, html {
     border-radius: 4px; /* Adds slight rounding to the corners of the image */
     margin-top: 15px; /* Adds space between the image and the last paragraph */
 }
+    #workspace img {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin-bottom: 20px;
+        border-radius: 4px;
+    }
 
 /* Button Styling */
 #workspace button {
@@ -57,6 +108,20 @@ body, html {
     margin: 10px 5px 0 0; /* Adds space around buttons */
     transition: background-color 0.3s;
 }
+    #workspace button {
+        display: inline-block;
+        /* Display buttons side by side */
+        padding: 10px 15px;
+        background-color: #28a745;
+        color: white;
+        text-align: center;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+        /* Space between buttons */
+        text-decoration: none;
+    }
 
 #workspace button:hover {
     background-color: #0056b3; /* Darkens the button on hover for interactivity */
@@ -82,6 +147,14 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
 }
 
 
+    #workspace button:hover {
+        background-color: #218838;
+    }
+
+    #workspace button:last-child {
+        margin-right: 0;
+        /* Remove margin for the last button */
+    }
 </style>
 
 
@@ -98,6 +171,15 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
     //Load the workspaces from Local Storage
     let workspace = getWorkspaces(propertyId, id) || [];
 
+    //calculate the average rating
+    let totalRating = 0;
+    workspace.ratings.forEach(rating => {
+        totalRating += rating.rating;
+    });
+
+    //round to int
+    const averageRating = Math.round(totalRating / workspace.ratings.length);
+
     //Display the workspace
     const workspaceDiv = document.getElementById("workspace");
     workspaceDiv.innerHTML = `
@@ -107,14 +189,29 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
         <p>$ ${workspace.price} / ${workspace.leaseTerm}</p>
         <p>${workspace.size} sq ft</p>
         <p>${workspace.seat} seats</p> 
+        <p>Rating: ${averageRating}</p>
         <img src="${workspace.photos[0]}" alt="${workspace.name}">
         <div id="workspace">
-        <p>Rating: ${getRating(workspace.id)}</p>
         <button onclick="location.href='workspaceForm.html?id=${workspace._id}'">Edit</button>
         <button onclick="location.href='workspaceForm.html?id=${workspace._id}'">Delete</button>
+        <!--rating-->
+        <button id="editBtn" onclick="location.href='workspaceForm.html?id=${workspace._id}'">Edit</button>
+        <button id="deleteBtn" onclick="location.href='workspaceForm.html?id=${workspace._id}'">Delete</button>
         <button onclick="location.href='bookForm.html?wid=${workspace._id}'">Book this Workspaces</button>
         </div>
         </div>
 
     `;
+        <button onclick="location.href='ratingForm.html?wid=${workspace._id}&propertyId=${workspace.property}'">Rate this Workspaces</button>
+    `;
+
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    const role = user?.role;
+    if (role === "owner") {
+        document.getElementById("editBtn").style.display = "block";
+        document.getElementById("deleteBtn").style.display = "block";
+    } else {
+        document.getElementById("editBtn").style.display = "none";
+        document.getElementById("deleteBtn").style.display = "none";
+    }
 </script>

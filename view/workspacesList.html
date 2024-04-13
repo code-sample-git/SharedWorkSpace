@@ -15,6 +15,24 @@ body, html {
 body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollbar {
     display: none;
 }
+    /* General Resets */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        /* You can choose another font */
+        background-image: none !important;
+        background-color: transparent !important;
+        overflow: hidden;
+        height: 100%
+    }
 
 /* Container for workspace listings */
 .container {
@@ -22,13 +40,18 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: grid;
 }
+    /* Container for workspace listings */
+    .container {
+        max-width: 1200px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-/* Title styling */
-.container h1 {
-    color: black;
-    text-align: center;
-    margin-bottom: 30px;
-}
+    /* Title styling */
+    .container h1 {
+        color: black;
+        text-align: center;
+        margin-bottom: 30px;
+    }
 
 /* Workspace Grid Layout */
 #workspaces {
@@ -38,6 +61,15 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
     padding: 20px 0;
 
 }
+    /* Workspace Grid Layout */
+    #workspaces {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* Responsive grid */
+        gap: 20px;
+        /* Spacing between grid items */
+        padding: 20px 0;
+    }
 
 /* Individual Workspace Card Styling */
 .workspace {
@@ -51,11 +83,18 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
     background-color: rgba(255, 255, 255, 0.5); /* White background with 50% transparency */
     height: 100%; /* Make each card the same height */
 }
+    /* Individual Workspace Card Styling */
+    .workspace {
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
 
-.workspace h2 {
-    color: black; /* Highlight color */
-    margin-bottom: 10px;
-}
+    .workspace h2 {
+        color: black;
+        /* Highlight color */
+        margin-bottom: 10px;
+    }
 
 .workspace p {
     font-size: 16px;
@@ -79,6 +118,18 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
     display: block;
     margin-top: 5px;
 }
+    .workspace p {
+        font-size: 16px;
+        color: black;
+        margin-bottom: 10px;
+    }
+
+    .workspace img {
+        width: 100%;
+        /* Makes image fill the container */
+        height: auto;
+        display: block;
+    }
 
 .workspace button {
     display: block;
@@ -91,14 +142,23 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+    .workspace button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        /* Primary action button */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-.workspace button:hover {
-    background-color: #218838; /* Darker on hover */
-}
-
-
-
-
+    .workspace button:hover {
+        background-color: #218838;
+        /* Darker on hover */
+    }
 </style>
 
 
@@ -116,6 +176,15 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
 
     const workspacesDiv = document.getElementById("workspaces");
     workspaces.forEach(workspace => {
+        //calculate the average rating
+        let totalRating = 0;
+        workspace.ratings.forEach(rating => {
+            totalRating += rating.rating;
+        });
+        //round to int
+        const averageRating = Math.round(totalRating / workspace.ratings.length);
+
+        //Display the workspace
         const workspaceDiv = document.createElement("div");
         workspaceDiv.className = 'workspace';
         workspaceDiv.innerHTML = `
@@ -126,6 +195,7 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
             <p>${workspace.size} sq ft</p>
             <p>${workspace.seat} seats</p> 
             </div>
+            <p>Average Rating: ${averageRating}</p>
             <img src="${workspace.photos[0]}" alt="${workspace.name}">
             <button onclick="location.href='workspaceView.html?propertyId=${workspace.property?._id}&id=${workspace._id}'">View</button>
         `;
