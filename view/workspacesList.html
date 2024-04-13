@@ -1,20 +1,25 @@
 <!-- This is a page to list the workspace available-->
 
 <style>
-/* General Resets */
-body, html {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollbar {
-    display: none;
-}
+    /* General Resets */
+    body,
+    html {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body::-webkit-scrollbar,
+    html::-webkit-scrollbar,
+    .main-content::-webkit-scrollbar {
+        display: none;
+    }
+
     /* General Resets */
     * {
         box-sizing: border-box;
@@ -34,12 +39,13 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
         height: 100%
     }
 
-/* Container for workspace listings */
-.container {
-    max-width: 1000px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    display: grid;
-}
+    /* Container for workspace listings */
+    .container {
+        max-width: 1000px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: grid;
+    }
+
     /* Container for workspace listings */
     .container {
         max-width: 1200px;
@@ -53,14 +59,17 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
         margin-bottom: 30px;
     }
 
-/* Workspace Grid Layout */
-#workspaces {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Responsive grid */
-    gap: 20px; /* Creates a 20px gap between grid items */
-    padding: 20px 0;
+    /* Workspace Grid Layout */
+    #workspaces {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* Responsive grid */
+        gap: 20px;
+        /* Creates a 20px gap between grid items */
+        padding: 20px 0;
 
-}
+    }
+
     /* Workspace Grid Layout */
     #workspaces {
         display: grid;
@@ -71,18 +80,24 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
         padding: 20px 0;
     }
 
-/* Individual Workspace Card Styling */
-.workspace {
-    display: flex;
-    flex-direction: column; /* Stack the content vertically */
-    justify-content: space-between; /* Distributes space between items */
-    align-items: stretch; /* Makes items fill the container vertically */
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.5); /* White background with 50% transparency */
-    height: 100%; /* Make each card the same height */
-}
+    /* Individual Workspace Card Styling */
+    .workspace {
+        display: flex;
+        flex-direction: column;
+        /* Stack the content vertically */
+        justify-content: space-between;
+        /* Distributes space between items */
+        align-items: stretch;
+        /* Makes items fill the container vertically */
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        background-color: rgba(255, 255, 255, 0.5);
+        /* White background with 50% transparency */
+        height: 100%;
+        /* Make each card the same height */
+    }
+
     /* Individual Workspace Card Styling */
     .workspace {
         border-radius: 8px;
@@ -96,28 +111,31 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
         margin-bottom: 10px;
     }
 
-.workspace p {
-    font-size: 16px;
-    color: black;
-    margin-bottom: 5px;
-    margin-top: 5px;
-}
+    .workspace p {
+        font-size: 16px;
+        color: black;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
 
-.workspace-details {
-    display: flex;
+    .workspace-details {
+        display: flex;
 
-}
+    }
 
-.workspace-details p {
-    margin: 0 1em 0 0; /* Adjust as needed */
-}
+    .workspace-details p {
+        margin: 0 1em 0 0;
+        /* Adjust as needed */
+    }
 
-.workspace img {
-    width: 100%; /* Makes image fill the container */
-    height: auto;
-    display: block;
-    margin-top: 5px;
-}
+    .workspace img {
+        width: 100%;
+        /* Makes image fill the container */
+        height: auto;
+        display: block;
+        margin-top: 5px;
+    }
+
     .workspace p {
         font-size: 16px;
         color: black;
@@ -131,17 +149,18 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
         display: block;
     }
 
-.workspace button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    .workspace button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
     .workspace button {
         display: block;
         width: 100%;
@@ -182,7 +201,11 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
             totalRating += rating.rating;
         });
         //round to int
-        const averageRating = Math.round(totalRating / workspace.ratings.length);
+        let averageRating = Math.round(totalRating / workspace.ratings.length);
+        //if rating is NaN, set to 'No Rating Available'
+        if (isNaN(averageRating)) {
+            averageRating = 'No Rating Available';
+        }
 
         //Display the workspace
         const workspaceDiv = document.createElement("div");

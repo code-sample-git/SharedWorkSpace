@@ -356,6 +356,11 @@ function deleteProperty(id) {
         return avgRating;
     }
 
+    function getPropertyOwner(id) {
+        return callBackendApi("/properties/" + id + "/owner", "GET", {});
+    }
+
+
     function addObjecttoLocalStorage(object, storageKey) {
         try {
             //save the user to the local storage
