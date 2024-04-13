@@ -1,27 +1,53 @@
 <style>
 /* Container styling */
 body, html {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif; /* You can choose another font */
-    background-image: none !important;
-    background-color: transparent !important;
-    overflow: hidden;
-    height: 100%
+    box-sizing: border-box;
+}
+body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollbar {
+    display: none;
+}
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 
 }
 
-.container {
-    max-width: 1200px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-
-}
-
-/* Header styling */
-.container h1 {
-    color: black;
+.search-bar {
     text-align: center;
-    margin-bottom: 30px;
+    width: 1000px;
+
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: center;
+    width: 1000px;
+    margin: 20px auto; /* Adjust the first value to move the container down, the second value centers the container */
+}
+.controls {
+    margin-right: 20px; /* Add some space between the controls and the items */
 }
 
 /* Button styling */
@@ -32,6 +58,7 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    width: 120px;
     font-size: 16px;
     margin: 10px 5px; /* Spacing around buttons */
     transition: background-color 0.3s ease;
@@ -49,9 +76,8 @@ button:hover {
 /* Items and property item styling */
 #items {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Responsive grid */
-    gap: 20px; /* Spacing between grid items */
-    padding: 20px 0;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; /* Adjust this value to add space between the items */
 }
 
 .item {
@@ -106,24 +132,25 @@ input[type="text"] {
 
 
 </style>
-
-<div>
+<div class="main-content">
+<div class="search-bar">
     <!--Searching-->
     <input type="text" id="search" placeholder="Search for properties">
     <button onclick="search()">Search</button>
     <button onclick="displayProperties(properties)">Reset</button>
 </div>
 <div class="container">
-    <h1>Properties</h1>
-    <!-- A add New Property Butto-->
-    <button id="addNewProperty" onclick="showPage('propertyForm')">Add New Property</button>
-    <!--Menu-->
+    <div class="controls-container">
     <div class="controls">
+        <button id="addNewProperty" onclick="showPage('propertyForm')">Add New Property</button>
         <button id="myOwnProperties">My Own Properties</button>
     </div>
     <!-- Display the Properties here -->
     <div id="items"></div>
 </div>
+</div>
+</div>
+
 <script src="../model.js"></script>
 <script>
     //if the user is logged in, hide the register and login buttons

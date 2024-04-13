@@ -30,7 +30,7 @@ header {
     justify-content: space-between;
     align-items: center;
     transition: background-color 0.5s ease; /* Smooth transition for background color */
-    z-index: 1; /* Ensure header is above other content */
+    z-index: 100; /* Ensure header is above other content */
     text-align: center; /* This will center all text within the header */
 
 } 
@@ -39,7 +39,6 @@ header:hover {
     background-color: rgba(242, 227, 23, 0.3); /* Darker shade on hover for subtle interaction */
     
 }
-
 
 
 
@@ -127,8 +126,8 @@ h1 {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    height: 100vh !important;
     width: 100% !important;
+
 }
 
 
