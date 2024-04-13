@@ -225,10 +225,24 @@
         <button id="editBtn" onclick="location.href='workspaceForm.html?id=${workspace._id}'">Edit</button>
         <button id="deleteBtn" onclick="location.href='workspaceForm.html?id=${workspace._id}'">Delete</button>
         <button id="bookBtn" onclick="displayOwenerContact('${workspace.property}')">Book this Workspaces</button>
-        <p id="loginMsg">Please login to book this workspace</p>
+        <button id="rateBtn" onclick="location.href='ratingForm.html?wid=${workspace._id}&propertyId=${workspace.property}'">Give Rating</button>
+        <p id="loginMsg">Please login to book and give rating to this workspace.</p>
+        <br/>
+        <div id="ratings"></div>
         </div>
-        <p id="ownerContact"></p>
     `;
+
+    //Display the ratings
+    const ratingsDiv = document.getElementById("ratings");
+    workspace.ratings.forEach(rating => {
+        const ratingDiv = document.createElement("div");
+        ratingDiv.className = 'rating';
+        ratingDiv.innerHTML = `
+            <h3>Rating: ${rating.rating}</h3>
+            <p>Comment:${rating.comment}</p>
+        `;
+        ratingsDiv.appendChild(ratingDiv);
+    });
 
     const user = JSON.parse(sessionStorage.getItem("user"));
     const role = user?.role;
@@ -236,10 +250,12 @@
         document.getElementById("editBtn").style.display = "block";
         document.getElementById("deleteBtn").style.display = "block";
         document.getElementById("bookBtn").style.display = "block";
+        document.getElementById("rateBtn").style.display = "none";
     } else {
         document.getElementById("editBtn").style.display = "none";
         document.getElementById("deleteBtn").style.display = "none";
         document.getElementById("bookBtn").style.display = "block";
+        document.getElementById("rateBtn").style.display = "block";
     }
 
     if (role == undefined || role == null || role == "") {
