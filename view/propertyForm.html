@@ -135,6 +135,7 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
 </form>
 <script src="../model.js"></script>
 <script>
+    parent.window.scrollTo(0, 0);
     //get the action parameter from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const action = urlParams.get('action');

@@ -73,6 +73,7 @@ button[type="submit"]:hover {
 </form>
 <script src="../model.js"></script>
 <script>
+    parent.window.scrollTo(0, 0);
     //When the submit button is pressed Validate the form
     document.querySelector(".rating-form button").addEventListener("click", function (event) {
         event.preventDefault();

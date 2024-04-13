@@ -218,7 +218,7 @@
         <p>${workspace.description}</p>
         <p>$ ${workspace.price} / ${workspace.leaseTerm}</p>
         <p>${workspace.size} sq ft</p>
-        <p>${workspace.seat} seats</p> 
+        <p>${workspace.seats} seats</p> 
         <p>Rating: ${averageRating}</p>
         <img src="${workspace.photos[0]}" alt="${workspace.name}">
         <div id="workspace">
@@ -238,7 +238,8 @@
         const ratingDiv = document.createElement("div");
         ratingDiv.className = 'rating';
         ratingDiv.innerHTML = `
-            <h3>Rating: ${rating.rating}</h3>
+            <h3>Rated by ${rating.username}</h3>
+            <p>Rating:${rating.rating}</p>
             <p>Comment:${rating.comment}</p>
         `;
         ratingsDiv.appendChild(ratingDiv);
@@ -261,6 +262,7 @@
     if (role == undefined || role == null || role == "") {
         document.getElementById("bookBtn").style.display = "none";
         document.getElementById("loginMsg").style.display = "block";
+        document.getElementById("rateBtn").style.display = "none";
     } else {
         document.getElementById("loginMsg").style.display = "none";
     }
