@@ -187,6 +187,7 @@
 </div>
 <script src="../model.js"></script>
 <script>
+    parent.window.scrollTo(0, 0);
     //Get the workspace id from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
@@ -241,10 +242,10 @@
         document.getElementById("bookBtn").style.display = "block";
     }
 
-    if(role == undefined || role == null || role == ""){
+    if (role == undefined || role == null || role == "") {
         document.getElementById("bookBtn").style.display = "none";
         document.getElementById("loginMsg").style.display = "block";
-    }else{
+    } else {
         document.getElementById("loginMsg").style.display = "none";
     }
 
@@ -252,10 +253,10 @@
         console.log("propertyId:" + propertyId);
         //call API to get the owner contact
         let res = getPropertyOwner(propertyId)
-        if(res.result){
+        if (res.result) {
             const owner = res.message;
             modelAlert(`To book the workspace, please contact ${owner.name}  by email ${owner.email} or by phone ${owner.phone}`);;
-        }else{
+        } else {
             modelAlert('Owner not found. Please try again later.');
         }
     }
