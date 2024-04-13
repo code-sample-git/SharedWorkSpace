@@ -1,86 +1,91 @@
 <!-- This is a page to list the workspace available-->
 
 <style>
-/* General Resets */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+    /* General Resets */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif; /* You can choose another font */
-    background-image: none !important;
-    background-color: transparent !important;
-    overflow: hidden;
-    height: 100%
-}
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        /* You can choose another font */
+        background-image: none !important;
+        background-color: transparent !important;
+        overflow: hidden;
+        height: 100%
+    }
 
-/* Container for workspace listings */
-.container {
-    max-width: 1200px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+    /* Container for workspace listings */
+    .container {
+        max-width: 1200px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-/* Title styling */
-.container h1 {
-    color: black;
-    text-align: center;
-    margin-bottom: 30px;
-}
+    /* Title styling */
+    .container h1 {
+        color: black;
+        text-align: center;
+        margin-bottom: 30px;
+    }
 
-/* Workspace Grid Layout */
-#workspaces {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);/* Responsive grid */
-    gap: 20px; /* Spacing between grid items */
-    padding: 20px 0;
-}
+    /* Workspace Grid Layout */
+    #workspaces {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* Responsive grid */
+        gap: 20px;
+        /* Spacing between grid items */
+        padding: 20px 0;
+    }
 
-/* Individual Workspace Card Styling */
-.workspace {
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-}
+    /* Individual Workspace Card Styling */
+    .workspace {
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
 
-.workspace h2 {
-    color: black; /* Highlight color */
-    margin-bottom: 10px;
-}
+    .workspace h2 {
+        color: black;
+        /* Highlight color */
+        margin-bottom: 10px;
+    }
 
-.workspace p {
-    font-size: 16px;
-    color: black;
-    margin-bottom: 10px;
-}
-.workspace img {
-    width: 100%; /* Makes image fill the container */
-    height: auto;
-    display: block;
-}
+    .workspace p {
+        font-size: 16px;
+        color: black;
+        margin-bottom: 10px;
+    }
 
-.workspace button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745; /* Primary action button */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    .workspace img {
+        width: 100%;
+        /* Makes image fill the container */
+        height: auto;
+        display: block;
+    }
 
-.workspace button:hover {
-    background-color: #218838; /* Darker on hover */
-}
+    .workspace button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        /* Primary action button */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-
-
-
+    .workspace button:hover {
+        background-color: #218838;
+        /* Darker on hover */
+    }
 </style>
 
 
@@ -104,8 +109,9 @@ body, html {
         workspace.ratings.forEach(rating => {
             totalRating += rating.rating;
         });
-        const averageRating = totalRating / workspace.ratings.length;
-        
+        //round to int
+        const averageRating = Math.round(totalRating / workspace.ratings.length);
+
         //Display the workspace
         const workspaceDiv = document.createElement("div");
         workspaceDiv.className = 'workspace';
