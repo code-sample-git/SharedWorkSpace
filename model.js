@@ -406,8 +406,8 @@ function deleteProperty(id) {
         const browserUrl = window.location.href;
         let backendEndpoint;
         if (browserUrl.includes("localhost") || browserUrl.includes("127.0.0.1")) {
-            backendEndpoint = "http://localhost:3000";
-            //backendEndpoint = "https://sharedworkspacebackend.onrender.com";
+            // backendEndpoint = "http://localhost:3000";
+            backendEndpoint = "https://sharedworkspacebackend.onrender.com";
         } else {
             backendEndpoint = "https://sharedworkspacebackend.onrender.com";
         }
