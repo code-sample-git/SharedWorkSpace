@@ -29,35 +29,14 @@
         padding: 0;
     }
 
-    body {
-        font-family: 'Arial', sans-serif;
-        overflow: hidden;
-    }
-
-    .container {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
 
     /* Header Styling */
     .container h1 {
         color: black;
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
-    .container h1,
-    .container h2 {
-        text-align: center;
-        color: black;
-    }
-
-    .container h1 {
-        margin-bottom: 30px;
-    }
 
     /* Property Details Styling */
     #workspace h2 {
@@ -67,10 +46,14 @@
     }
 
     #workspace {
-        padding: 20px;
-        ;
         border-radius: 8px;
         margin-top: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: row; /* Aligns children in a row */
+        justify-content: flex-start; /* Centers children horizontally */
+        align-items: center; /* Centers children vertically */
+        flex-wrap: wrap; /* Allows the buttons to wrap to a new line if there isn't enough space */
     }
 
     #workspace h2 {
@@ -82,33 +65,21 @@
         font-size: 16px;
         color: black;
         /* Dark gray color for text for better readability */
-        margin: 20px 0;
+        margin: 10px 0;
         /* Adds a little space between paragraphs */
     }
 
-    #workspace p {
-        font-size: 16px;
-        margin-bottom: 10px;
-        color: black;
-    }
 
     #workspace img {
-        width: 300px;
+        width: 500px;
         /* Ensures the image is responsive and fits within the container */
-        height: 300px;
+        height: 500px;
         border-radius: 4px;
         /* Adds slight rounding to the corners of the image */
-        margin-top: 15px;
+        margin-top: 0px;
         /* Adds space between the image and the last paragraph */
     }
 
-    #workspace img {
-        width: 100%;
-        height: auto;
-        display: block;
-        margin-bottom: 20px;
-        border-radius: 4px;
-    }
 
     /* Button Styling */
     #workspace button {
@@ -124,35 +95,9 @@
         transition: background-color 0.3s;
     }
 
-    #workspace button {
-        display: inline-block;
-        /* Display buttons side by side */
-        padding: 10px 15px;
-        background-color: #28a745;
-        color: white;
-        text-align: center;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-right: 10px;
-        /* Space between buttons */
-        text-decoration: none;
-    }
-
     #workspace button:hover {
         background-color: #0056b3;
         /* Darkens the button on hover for interactivity */
-    }
-
-    /* Additional Styling for the "Add workspace to this property" button for differentiation */
-    #workspace button:nth-of-type(2) {
-        background-color: #28a745;
-        /* A green color for a secondary action */
-    }
-
-    #workspace button:nth-of-type(2):hover {
-        background-color: #218838;
-        /* A darker green on hover */
     }
 
     body::-webkit-scrollbar,
@@ -170,15 +115,11 @@
         /* Add some padding so the content isn't up against the edge */
     }
 
-
-    #workspace button:hover {
-        background-color: #218838;
-    }
-
-    #workspace button:last-child {
-        margin-right: 0;
-        /* Remove margin for the last button */
-    }
+    #rating {
+    width: 100%; /* Forces the rating onto a new line */
+    margin-top: 20px; /* Adds some space above the rating */
+    /* Other styles... */
+}
 </style>
 
 
@@ -228,8 +169,9 @@
         <button id="rateBtn" onclick="location.href='ratingForm.html?wid=${workspace._id}&propertyId=${workspace.property}'">Give Rating</button>
         <p id="loginMsg">Please login to book and give rating to this workspace.</p>
         <br/>
-        <div id="ratings"></div>
         </div>
+        <div id="ratings"></div>
+
     `;
 
     //Display the ratings
