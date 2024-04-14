@@ -74,6 +74,18 @@ h1 {
 }
 
 
+.user-info p {
+    margin: 3px 0; /* Adjust this value to your liking */
+    display: flex;
+    justify-content: flex-end;
+}
+
+.user-info button {
+    padding: 5px 10px; /* Adjust this value to your liking */
+    font-size: 14px; /* Adjust this value to your liking */
+    /* Other styles... */
+}
+
 .sidebar {
     position: relative;
     top: 100px + 1%; /* Adjusted to clear the header */
