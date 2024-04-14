@@ -71,13 +71,21 @@ button[type="submit"]:hover {
     </div>
     <button type="submit">Submit</button>
 </form>
-<script src="../model.js"></script>
+<script src="../script.js"></script>
 <script>
+    parent.window.scrollTo(0, 0);
     //When the submit button is pressed Validate the form
     document.querySelector(".rating-form button").addEventListener("click", function (event) {
         event.preventDefault();
         //Get the rating by id
         let rating = document.getElementById("rating").value;
+
+        //check if the rating is between 1 and 5
+        if(rating < 1 || rating > 5){
+            modelAlert("Rating must be between 1 and 5");
+            return;
+        }
+
         //Get the comment by id
         let comment = document.getElementById("comment").value;
         //Get the booking id from the URL

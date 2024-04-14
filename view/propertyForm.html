@@ -133,8 +133,9 @@ body::-webkit-scrollbar, html::-webkit-scrollbar, .main-content::-webkit-scrollb
     <input type="file" multiple accept="image/png, image/jpeg, image/jpg, image/gif" required>
     <button type="submit">Add</button>
 </form>
-<script src="../model.js"></script>
+<script src="../script.js"></script>
 <script>
+    parent.window.scrollTo(0, 0);
     //get the action parameter from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const action = urlParams.get('action');
